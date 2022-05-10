@@ -1,0 +1,13 @@
+<changelogs>
+	<changelog>
+		<element>autoreadmore</element>
+		<type>plugin</type>
+		<version>5.0.0</version>
+        <note>
+            <item>10/05/2022</item>
+        </note>
+         <addition>
+            <item>Joomla 4.x compatibility</item>
+        </addition>
+	</changelog>
+</changelogs>

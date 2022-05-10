@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.10" type="plugin" group="content" method="upgrade">
+	<name>PLG_CONTENT_AUTOREADMORE_TITLE</name>
+	<creationDate>2022-05-10</creationDate>
+	<copyright>Copyright (C) 2022 Conseilgouz All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
+	<author>ConseilGouz</author>
+	<authorEmail>pascal.leconte@conseilgouz.com</authorEmail>
+	<authorUrl>https://www.conseilgouz.com</authorUrl>
+	<version>5.0.0</version>
+	<description>PLG_CONTENT_AUTOREADMORE_THANK_YOU_FOR_USING_AUTO_READ_MORE</description>
+	<files>
+		<folder>helpers</folder>
+		<filename>README.md</filename>
+		<filename plugin="autoreadmore">autoreadmore.php</filename>
+		<filename>index.html</filename>
+		<filename>scriptfile.php</filename>
+	</files>
+    <languages>
+		<language tag="en-GB">language/en-GB/plg_content_autoreadmore.ini</language>
+		<language tag="en-GB">language/en-GB/plg_content_autoreadmore.sys.ini</language>
+		<language tag="fr-FR">language/fr-FR/plg_content_autoreadmore.ini</language>
+		<language tag="fr-FR">language/fr-FR/plg_content_autoreadmore.sys.ini</language>
+	</languages>
+	
+	<config>
+		<fields name="params" >
+			<fieldset name="basic" group="settings" label="JOPTIONS">
+				<field name="debug" type="list" default="0" label="PLG_CONTENT_AUTOREADMORE_LIMITTYPE_LABEL_DEBUG">
+					<option value="0">JDISABLED</option>
+					<option value="1">JENABLED</option>
+					<option value="2">PLG_CONTENT_AUTOREADMORE_LIMITTYPE_LABEL_DEBUG_EXTENDED_DEBUG_OUTPUT</option>
+				</field>
+<field name="contexts_to_run" type="note"  class="alert-success alert-block" label="PLG_CONTENT_AUTOREADMORE_FIELD_EXPLAIN_CONTEXTS_INCLUDE"/>
+				<field name="Enabled_Front_Page" type="list" default="1" label="PLG_CONTENT_AUTOREADMORE_ENABLED_FRONT_PAGE_LABEL" description="PLG_CONTENT_AUTOREADMORE_ENABLED_FRONT_PAGE_DESC">
+					<option value="1">JYes</option>
+					<option value="0">JNo</option>
+				</field>
+				<field showon="Enabled_Front_Page:1" name="{Enabled_Front_Page_options" maxrepeatlength="1" type="note" basetype="blockquote" class="no-box-shadow" label=""/>
+				<!--	Select categories { -->
+				<field showon="Enabled_Front_Page:1" name="fp_categories_switch" type="list" default="0" label="PLG_CONTENT_AUTOREADMORE_FIELD_CATEGORIES" description="">
+					<option value="1">PLG_CONTENT_AUTOREADMORE_FIELD_SELECTION</option>
+					<option value="2">PLG_CONTENT_AUTOREADMORE_FIELD_EXCLUDE_SELECTION</option>
+					<option value="0">JALL</option>
+				</field>
+				<field showon="Enabled_Front_Page:1[AND]fp_categories_switch:1,2" name="fp_categories" type="category" extension="com_content" multiple="multiple" size="20" show_uncategorized="1" default="" label="" description="" layout="joomla.form.field.list-fancy-select"/>
+				<!--	Select articles { -->
+				<field showon="Enabled_Front_Page:1[AND]fp_categories_switch:1,2" name="fp_articles_switch" type="list" default="0" label="PLG_CONTENT_AUTOREADMORE_FIELD_SPECIFIC_ARTICLES">
+					<option value="1">PLG_CONTENT_AUTOREADMORE_FIELD_SELECTION</option>
+					<option value="2">PLG_CONTENT_AUTOREADMORE_FIELD_EXCLUDE_SELECTION</option>
+					<option value="0">PLG_CONTENT_AUTOREADMORE_FIELD_NO_SPECIFIC_RULES</option>
+				</field>
+				<field showon="Enabled_Front_Page:1[AND]fp_categories_switch:1,2" name="fp_id" type="sql" label="PLG_CONTENT_AUTOREADMORE_FIELD_ARTICLE_IDS" description="PLG_CONTENT_AUTOREADMORE_FIELD_CONTENTITEM_IDS_DESC"
+				query="SELECT id as article_id, title as value FROM #__content"
+				key_field="article_id"
+				value_field="value" multiple="multiple" layout="joomla.form.field.list-fancy-select"/>
+
+				<field name="joomla_articles" type="list" default="1" label="PLG_CONTENT_AUTOREADMORE_FIELD_FOR_ARTICLES">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				<field showon="joomla_articles:1" name="joomla_articles_parse_category" type="list" default="0" label="PLG_CONTENT_AUTOREADMORE_FIELD_PARSE_CATEGORY" description="PLG_CONTENT_AUTOREADMORE_FIELD_PARSE_CATEGORY_DESC">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				<!--	Select categories { -->
+				<field showon="joomla_articles:1" name="categories_switch" type="list" default="0" label="PLG_CONTENT_AUTOREADMORE_FIELD_CATEGORIES" description="">
+					<option value="1">PLG_CONTENT_AUTOREADMORE_FIELD_SELECTION</option>
+					<option value="2">PLG_CONTENT_AUTOREADMORE_FIELD_EXCLUDE_SELECTION</option>
+					<option value="0">JALL</option>
+				</field>
+				<field showon="joomla_articles:1[AND]categories_switch:1,2" name="categories" type="category" extension="com_content" multiple="multiple" size="20" show_uncategorized="1" default="" label="" description="" layout="joomla.form.field.list-fancy-select"/>
+				<!--	Select articles { -->
+				<field showon="joomla_articles:1" name="articles_switch" type="list" default="0" label="PLG_CONTENT_AUTOREADMORE_FIELD_SPECIFIC_ARTICLES">
+					<option value="1">PLG_CONTENT_AUTOREADMORE_FIELD_SELECTION</option>
+					<option value="2">PLG_CONTENT_AUTOREADMORE_FIELD_EXCLUDE_SELECTION</option>
+					<option value="0">PLG_CONTENT_AUTOREADMORE_FIELD_NO_SPECIFIC_RULES</option>
+				</field>
+				<field showon="joomla_articles:1[AND]articles_switch:1,2" name="id" type="sql" label="PLG_CONTENT_AUTOREADMORE_FIELD_ARTICLE_IDS" description="PLG_CONTENT_AUTOREADMORE_FIELD_CONTENTITEM_IDS_DESC"
+				query="SELECT id as article_id, title as value FROM #__content"
+				key_field="article_id"
+				value_field="value" multiple="multiple" layout="joomla.form.field.list-fancy-select"/>
+
+				<field name="context_switch" type="list" default="exclude" label="PLG_CONTENT_AUTOREADMORE_FIELD_CONTEXTS" description="PLG_CONTENT_AUTOREADMORE_FIELD_CONTEXTS_DESC">
+					<option value="include">PLG_CONTENT_AUTOREADMORE_FIELD_SELECTION</option>
+					<option value="exclude">PLG_CONTENT_AUTOREADMORE_FIELD_EXCLUDE_SELECTION</option>
+					<option value="all_enabled">PLG_CONTENT_AUTOREADMORE_ALL_ENABLED</option>
+					<option value="all_disabled">PLG_CONTENT_AUTOREADMORE_ALL_DISABLED</option>
+				</field>
+
+
+				<field showon="context_switch:include" name="contextsToInclude" type="repeatable" icon="list" description="" label="PLG_CONTENT_AUTOREADMORE_FIELD_CONTEXTSTOINCLUDE">
+				<fieldset hidden="true" name="contexts_list" repeat="true">
+					<field name="context" label="PLG_CONTENT_AUTOREADMORE_FIELD_CONTEXT" type="text" hint="com_k2.itemlist"/>
+					<field name="context_categories_switch" type="list" default="0" class="span2" label="PLG_CONTENT_AUTOREADMORE_FIELD_CATEGORIES" description="PLG_CONTENT_AUTOREADMORE_FIELD_SELECT_DESC">
+						<option value="1">PLG_CONTENT_AUTOREADMORE_FIELD_SELECTION</option>
+						<option value="2">PLG_CONTENT_AUTOREADMORE_FIELD_EXCLUDE_SELECTION</option>
+						<option value="0">JALL</option>
+					</field>
+					<field name="categories_ids" label="PLG_CONTENT_AUTOREADMORE_FIELD_CATEGORIES_CUSTOM" class="span1" type="text" hint="28,34,21" description="PLG_CONTENT_AUTOREADMORE_FIELD_CATEGORIES_CUSTOM_DESC"/>
+					<field name="context_content_items_switch" type="list" default="0" label="PLG_CONTENT_AUTOREADMORE_FIELD_SPECIFIC_ARTICLES" class="span2">
+						<option value="1">PLG_CONTENT_AUTOREADMORE_FIELD_SELECTION</option>
+						<option value="2">PLG_CONTENT_AUTOREADMORE_FIELD_EXCLUDE_SELECTION</option>
+						<option value="0">PLG_CONTENT_AUTOREADMORE_FIELD_NO_SPECIFIC_RULES</option>
+					</field>
+					<field name="context_content_item_ids" label="PLG_CONTENT_AUTOREADMORE_FIELD_CONTENTITEM_IDS" class="span1" description="PLG_CONTENT_AUTOREADMORE_FIELD_CONTENTITEM_IDS_DESC" type="text" hint="15,32,11"/>
+				</fieldset>
+				</field>
+				<field showon="context_switch:exclude" name="exclude_mod_contexts" type="list" default="1" label="PLG_CONTENT_AUTOREADMORE_FIELD_EXCLUDE_MOD_CONTEXTS" description="PLG_CONTENT_AUTOREADMORE_FIELD_EXCLUDE_MOD_CONTEXTS_DESC">
+							<option value="0">JNo</option>
+							<option value="1">JYes</option>
+				</field>
+				<field showon="context_switch:exclude" name="contextsToExclude" type="textarea" label="PLG_CONTENT_AUTOREADMORE_FIELD_CONTEXTSTOEXCLUDE" default="mod_custom.content,"/>
+
+				<field showon="context_switch:include,exclude" type="note" basetype="notefixed" name="note_reload" heading="span" class="alert" label="PLG_CONTENT_AUTOREADMORE_FIELD_CONTEXT_DESC" maxrepeatlength="1"/>
+
+<field name="readmore_options" type="note" class="alert-success alert-block" label="PLG_CONTENT_AUTOREADMORE_FIELD_READMORE_OPTIONS"/>
+
+				<field name="limittype" type="list" default="0" label="PLG_CONTENT_AUTOREADMORE_LIMITTYPE_LABEL" description="">
+					<option value="0">PLG_CONTENT_AUTOREADMORE_LIMITTYPE_OPTION_CHARS</option>
+					<option value="1">PLG_CONTENT_AUTOREADMORE_LIMITTYPE_OPTION_WORDS</option>
+					<option value="2">PLG_CONTENT_AUTOREADMORE_LIMITTYPE_OPTION_PARAGRAPHS</option>
+				</field>
+				<field name="noSpaceLanguage" type="list" default="0" label="PLG_CONTENT_AUTOREADMORE_NOSPACELANGUAGE" description="PLG_CONTENT_AUTOREADMORE_NOSPACELANGUAGE_DESC">
+					<option value="1">JYes</option>
+					<option value="0">JNo</option>
+				</field>
+				<field name="leadingMax" type="text" default="750" label="PLG_CONTENT_AUTOREADMORE_LEADING_MAX_LABEL" description="PLG_CONTENT_AUTOREADMORE_MAX_DESC"/>
+				<field name="introMax" type="text" default="500" label="PLG_CONTENT_AUTOREADMORE_INTRO_MAX_LABEL" description="PLG_CONTENT_AUTOREADMORE_MAX_DESC"/>
+				<field name="Ignore_Existing_Read_More" type="list" default="0" label="PLG_CONTENT_AUTOREADMORE_IGNORE_EXISTING_LABEL">
+					<option value="1">JYes</option>
+					<option value="0">JNo</option>
+				</field>
+
+				<field name="PluginCode" type="list" default="ignore" label="PLG_CONTENT_AUTOREADMORE_PLUGINCODE" description="PLG_CONTENT_AUTOREADMORE_PLUGINCODE_DESCRIPTION">
+					<option value="ignore">PLG_CONTENT_AUTOREADMORE_PLUGINCODE_IGNORE</option>
+					<option value="only">PLG_CONTENT_AUTOREADMORE_PLUGINCODE_ONLY</option>
+					<option value="except">PLG_CONTENT_AUTOREADMORE_PLUGINCODE_EXCEPT</option>
+				</field>
+
+
+				<field name="Strip_Formatting" type="list" default="0" label="PLG_CONTENT_AUTOREADMORE_STRIP_FORMATTING_LABEL" description="PLG_CONTENT_AUTOREADMORE_STRIP_FORMATTING_DESC">
+					<option value="1">JYes</option>
+					<option value="0">JNo</option>
+				</field>
+				<field name="wrap_output" type="list" default="0" label="PLG_CONTENT_AUTOREADMORE_FIELD_WRAP_OUTPUT">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				<field showon="wrap_output:1" name="wrap_output_template" type="textarea" cols="80" rows="10" filter="raw" label="PLG_CONTENT_AUTOREADMORE_FIELD_WRAP_TEMPLATE" default="&lt;div class=&quot;autoreadmore&quot;&gt;%OUTPUT%&lt;/div&gt;" class="span8"/>
+				<field name="add_trimming_dots" type="list" default="0" label="PLG_CONTENT_AUTOREADMORE_FIELD_ADD_TRIMMING_DOTS" description="PLG_CONTENT_AUTOREADMORE_FIELD_ADD_TRIMMING_DOTS_DESC">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+					<option value="2">PLG_CONTENT_AUTOREADMORE_FIELD_ADD_TRIMMING_DOTS_WHEN_NEEDED</option>
+				</field>
+				<field showon="add_trimming_dots:1,2" name="trimming_dots" type="text" default="..." label="PLG_CONTENT_AUTOREADMORE_TRIMMING_TEXT" description="" filter="raw"/>
+				<field showon="add_trimming_dots:1,2" name="readmore_text" type="text" default="" label="PLG_CONTENT_AUTOREADMORE_READMORE_TEXT" description="PLG_CONTENT_AUTOREADMORE_READMORE_TEXT_DESC"/>
+			</fieldset>
+			<fieldset name="thumbnails" group="thumbnails" label="PLG_CONTENT_AUTOREADMORE_THUMBNAIL_SETTINGS_LABEL">
+				<field name="Thumbnails" type="text" default="0" label="PLG_CONTENT_AUTOREADMORE_THUMBNAILS_LABEL" description="PLG_CONTENT_AUTOREADMORE_THUMBNAILS_DESC"/>
+				<field name="Force_Image_Count" type="list" default="0" label="PLG_CONTENT_AUTOREADMORE_FORCE_IMAGE_COUNT_LABEL" description="PLG_CONTENT_AUTOREADMORE_FORCE_IMAGE_COUNT_DESC" maxrepeatlength="1">
+					<option value="1">JYes</option>
+					<option value="0">JNo</option>
+				</field>
+
+				<field name="default_image" type="text" default="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/200px-No_image_available.svg.png" label="PLG_CONTENT_AUTOREADMORE_DEFAULT_IMAGE" description="PLG_CONTENT_AUTOREADMORE_DEFAULT_IMAGE_DESC"/>
+
+				<field name="ImageAsHTML" type="list" default="1" label="PLG_CONTENT_AUTOREADMORE_IMAGE_AS_HTML" description="PLG_CONTENT_AUTOREADMORE_IMAGE_AS_HTML_DESC">
+					<option value="1">JYes</option>
+					<option value="0">JNo</option>
+				</field>
+
+				<field showon="ImageAsHTML:1" name="Thumbnails_Class" type="text" default="" label="PLG_CONTENT_AUTOREADMORE_THUMBNAILS_CLASS_LABEL" description="PLG_CONTENT_AUTOREADMORE_THUMBNAILS_CLASS_DESC"/>
+				<field showon="ImageAsHTML:1" name="image_link_to_article" type="list" default="0" label="PLG_CONTENT_AUTOREADMORE_IMAGE_LINK_TO_ARTICLE" description="">
+					<option value="1">JYes</option>
+					<option value="0">JNo</option>
+				</field>
+				<field showon="ImageAsHTML:1" name="Strip_Image_Formatting" type="list" default="0" label="PLG_CONTENT_AUTOREADMORE_STRIP_FORMATTING_LABEL" description="PLG_CONTENT_AUTOREADMORE_STRIP_IMAGE_FORMATTING_DESC">
+					<option value="1">JYes</option>
+					<option value="0">JNo</option>
+				</field>
+				<field showon="ImageAsHTML:1" name="csscode" default=".margin-h-8 {margin:8px;}" type="textarea" label="PLG_CONTENT_AUTOREADMORE_CSS_CODE_LABEL" description="PLG_CONTENT_AUTOREADMORE_CSS_CODE_DESC"/>
+
+				<field name="Force_Image_Handle" type="list" default="0" label="PLG_CONTENT_AUTOREADMORE_FORCE_IMAGE_HANDLE_LABEL" description="PLG_CONTENT_AUTOREADMORE_FORCE_IMAGE_HANDLE_DESC">
+					<option value="1">JYes</option>
+					<option value="0">JNo</option>
+				</field>
+
+
+<field name="img_output_options" type="note" class="alert-success alert-block" label="PLG_CONTENT_AUTOREADMORE_FIELD_IMG_OUTPUT_OPTIONS"/>
+
+				<field name="wrap_image_output" type="list" default="0" label="PLG_CONTENT_AUTOREADMORE_FIELD_WRAP_IMAGE_OUTPUT">
+					<option value="0">JNo</option>
+					<option value="1">JYes</option>
+				</field>
+				<field showon="wrap_image_output:1" name="wrap_image_output_template" type="textarea" cols="80" rows="10" filter="raw" label="PLG_CONTENT_AUTOREADMORE_FIELD_WRAP_TEMPLATE" default="&lt;div class=&quot;image&quot;&gt;%OUTPUT%&lt;/div&gt;" class="span8"/>
+
+				<field name="image_search_pattern" type="list" default="img_only" label="PLG_CONTENT_AUTOREADMORE_FIELD_IMAGE_SEARCH_PATTERN" description="PLG_CONTENT_AUTOREADMORE_FIELD_IMAGE_SEARCH_PATTERN_DESC">
+					<option value="img_only">PLG_CONTENT_AUTOREADMORE_IMAGE_SEARCH_PATTERN_IMG_ONLY</option>
+					<option value="a_wrapped">PLG_CONTENT_AUTOREADMORE_IMAGE_SEARCH_PATTERN_A_WRAPPED</option>
+					<option value="custom">PLG_CONTENT_AUTOREADMORE_IMAGE_SEARCH_PATTERN_CUSTOM</option>
+				</field>
+				<field showon="image_search_pattern:custom" name="image_search_pattern_custom" type="textarea" cols="80" rows="10" filter="raw" label="PLG_CONTENT_AUTOREADMORE_FIELD_REGEX_PATTERN" default="~&lt;a[^&gt;]+&gt;&lt;img [^&gt;]+&gt;&lt;/a&gt;~ui&#13;&#10;~&lt;img [^&gt;]*&gt;~iu"/>
+
+			</fieldset>
+		</fields>
+	</config>
+	<scriptfile>scriptfile.php</scriptfile>
+	<changelogurl>https://www.conseilgouz.com/updates/plg_autoreadmore_changelog.xml</changelogurl>
+	<updateservers>
+	<servers type="extension" priority="1" name="autoreadmore">https://https://www.conseilgouz.com/updates/plg_autoreadmore_update.xml</servers></updateservers></extension>
