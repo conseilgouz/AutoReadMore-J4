@@ -2,6 +2,17 @@
 	<changelog>
 		<element>autoreadmore</element>
 		<type>plugin</type>
+		<version>5.0.2</version>
+        <note>
+            <item>10/05/2022</item>
+        </note>
+         <fix>
+            <item>wrong version number in xml</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>autoreadmore</element>
+		<type>plugin</type>
 		<version>5.0.1</version>
         <note>
             <item>10/05/2022</item>
