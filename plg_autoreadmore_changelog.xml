@@ -2,6 +2,17 @@
 	<changelog>
 		<element>autoreadmore</element>
 		<type>plugin</type>
+		<version>5.0.1</version>
+        <note>
+            <item>10/05/2022</item>
+        </note>
+         <fix>
+            <item>remove unexpected * in AutoReadMoreString.php file</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>autoreadmore</element>
+		<type>plugin</type>
 		<version>5.0.0</version>
         <note>
             <item>10/05/2022</item>
