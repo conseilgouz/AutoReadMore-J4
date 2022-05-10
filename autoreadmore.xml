@@ -208,4 +208,4 @@
 	<scriptfile>scriptfile.php</scriptfile>
 	<changelogurl>https://www.conseilgouz.com/updates/plg_autoreadmore_changelog.xml</changelogurl>
 	<updateservers>
-	<servers type="extension" priority="1" name="autoreadmore">https://https://www.conseilgouz.com/updates/plg_autoreadmore_update.xml</servers></updateservers></extension>
+	<servers type="extension" priority="1" name="autoreadmore">https://www.conseilgouz.com/updates/plg_autoreadmore_update.xml</servers></updateservers></extension>
