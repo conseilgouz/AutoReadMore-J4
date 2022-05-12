@@ -11,6 +11,7 @@
         </fix>
 		<addition>
 			<item>add version display in admin</item>
+			<item>namespace</item>
 		</addition>
 	</changelog>
 	<changelog>

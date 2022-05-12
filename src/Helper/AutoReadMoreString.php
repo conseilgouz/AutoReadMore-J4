@@ -9,7 +9,7 @@
  * @copyright (C) 2022 www.conseilgouz.com. All Rights Reserved.
  * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
-
+namespace ConseilGouz\Plugin\Content\Autoreadmore\Helper;
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 use Joomla\String\StringHelper;

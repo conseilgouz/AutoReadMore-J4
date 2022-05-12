@@ -53,7 +53,7 @@ class plgContentAutoreadmoreInstallerScript  {
     }
 	
 	private function postinstall_cleanup() {
-				$obsloteFolders = ['extensions', 'images','language'];
+				$obsloteFolders = ['extensions', 'images','language','helpers'];
 		// Remove plugins' files which load outside of the component. If any is not fully updated your site won't crash.
 		foreach ($obsloteFolders as $folder)
 		{

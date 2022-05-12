@@ -18,6 +18,7 @@ use Joomla\CMS\Router\Route;
 use Joomla\String\StringHelper;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\Registry\Registry;
+use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 
 	class PlgContentAutoReadMore extends CMSPlugin
 				{
@@ -347,11 +348,6 @@ use Joomla\Registry\Registry;
 					{
 						// Truncate
 						// $text = StringHelper::substr($text, 0, $maxLimit);
-						if (!class_exists('AutoReadMoreString'))
-						{
-							require_once dirname(__FILE__) . '/helpers/AutoReadMoreString.php';
-						}
-
 						$text = AutoReadMoreString::truncate($text, $maxLimit, '&hellip;', true, $noSpaceLanguage);
 
 						if (!$noSpaceLanguage)
@@ -375,11 +371,6 @@ use Joomla\Registry\Registry;
 			// Limit by words
 			elseif ($limittype == 1)
 			{
-				if (!class_exists('AutoReadMoreString'))
-				{
-					require_once dirname(__FILE__) . '/helpers/AutoReadMoreString.php';
-				}
-
 				$original_length = StringHelper::strlen($text);
 				$text = AutoReadMoreString::truncateByWords($text, $maxLimit, $article->readmore);
 				$newLength = StringHelper::strlen($text);
