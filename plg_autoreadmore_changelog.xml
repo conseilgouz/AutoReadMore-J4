@@ -2,6 +2,20 @@
 	<changelog>
 		<element>autoreadmore</element>
 		<type>plugin</type>
+		<version>5.0.4</version>
+        <note>
+            <item>12/05/2022</item>
+        </note>
+         <fix>
+            <item>Apply content's plugins before truncating article</item>
+        </fix>
+		<addition>
+			<item>add version display in admin</item>
+		</addition>
+	</changelog>
+	<changelog>
+		<element>autoreadmore</element>
+		<type>plugin</type>
 		<version>5.0.3</version>
         <note>
             <item>10/05/2022</item>

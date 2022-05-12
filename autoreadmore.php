@@ -16,8 +16,10 @@ use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\Component\Content\Site\Helper\RouteHelper; 
 use Joomla\CMS\Router\Route;
 use Joomla\String\StringHelper;
+use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\Registry\Registry;
 
-	class PlgContentAutoReadMore extends JPlugin
+	class PlgContentAutoReadMore extends CMSPlugin
 				{
 	public function __construct(&$subject, $config)
 	{
@@ -70,7 +72,10 @@ use Joomla\String\StringHelper;
 			{
 				return false;
 			}
-
+			if (is_object($params) && $params->get("autoreadmore")) {
+				return true;
+			}
+			
 			$jinput = Factory::getApplication()->input;
 
 			if ($jinput->get('option', null, 'CMD') == 'com_dump')
@@ -168,7 +173,7 @@ use Joomla\String\StringHelper;
 			}
 			else
 			{
-				$this->params_content = new JRegistry;
+				$this->params_content = new Registry;
 
 				// Load my plugin params.
 				$this->params_content->loadString($params, 'JSON');
@@ -182,7 +187,6 @@ use Joomla\String\StringHelper;
 				$doc->addStyleDeclaration($csscode);
 				$GLOBALS['+xji*;!1'] = true;
 			}
-
 			if (isset($article->introtext))
 			{
 				// For core article
@@ -193,7 +197,7 @@ use Joomla\String\StringHelper;
 				// In most non core content items and modules
 				$text = $article->text;
 			}
-
+			
 			// Fulltext is not loaded, we must load it manually if needed
 			$this->fulltext_loaded = false;
 
@@ -215,7 +219,17 @@ use Joomla\String\StringHelper;
 				$text .= $this->loadFullText($article->id);
 				$this->fulltext_loaded = true;
 			}
-
+			// apply content plugins
+			if ($context == 'com_content.category') {
+				PluginHelper::importPlugin('content');
+				$myparams = Factory::getApplication()->getParams();;
+				$myparams->set("autoreadmore",true);
+				$item_cls = new \stdClass;
+				$item_cls->text = $text;
+				$item_cls->id = $article->id;
+				Factory::getApplication()->triggerEvent('onContentPrepare', array ($context, &$item_cls, $myparams, 0)); 
+				$text = $item_cls->text; 
+			}
 			$ImageAsHTML = true;
 
 			if (in_array($context, array("com_content.featured", "com_content.category")))

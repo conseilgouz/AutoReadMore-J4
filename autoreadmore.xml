@@ -7,10 +7,12 @@
 	<author>ConseilGouz</author>
 	<authorEmail>pascal.leconte@conseilgouz.com</authorEmail>
 	<authorUrl>https://www.conseilgouz.com</authorUrl>
-	<version>5.0.3</version>
+	<version>5.0.4</version>
 	<description>PLG_CONTENT_AUTOREADMORE_THANK_YOU_FOR_USING_AUTO_READ_MORE</description>
+	<namespace path="src">ConseilGouz\Plugin\Content\Autoreadmore</namespace>	
 	<files>
 		<folder>helpers</folder>
+		<folder>src</folder>
 		<filename>README.md</filename>
 		<filename plugin="autoreadmore">autoreadmore.php</filename>
 		<filename>index.html</filename>
@@ -25,7 +27,9 @@
 	
 	<config>
 		<fields name="params" >
-			<fieldset name="basic" group="settings" label="JOPTIONS">
+			<fieldset name="basic" group="settings" label="JOPTIONS" addfieldprefix="ConseilGouz\Plugin\Content\Autoreadmore\Field">
+				<field name="version" type="version" extension="AUTOREADMORE" xml="/plugins/content/autoreadmore/autoreadmore.xml"/>
+			
 				<field name="debug" type="list" default="0" label="PLG_CONTENT_AUTOREADMORE_LIMITTYPE_LABEL_DEBUG">
 					<option value="0">JDISABLED</option>
 					<option value="1">JENABLED</option>
