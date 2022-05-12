@@ -18,6 +18,7 @@ use Joomla\CMS\Router\Route;
 use Joomla\String\StringHelper;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\Registry\Registry;
+use Joomla\CMS\Version;
 use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 
 	class PlgContentAutoReadMore extends CMSPlugin
@@ -39,6 +40,11 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 		$this->plg_path_relative = '/plugins/' . $this->plg_type . '/' . $this->plg_name . '/';
 		$this->plg_path = JPATH_PLUGINS . '/' . $this->plg_type . '/' . $this->plg_name . '/';
 
+		$j = new Version();
+		$version=substr($j->getShortVersion(), 0,1); 
+		if ($version != "4") { // Joomla 4.0
+			JLoader::registerNamespace('ConseilGouz\Plugin\Content\Autoreadmore', JPATH_SITE . '/plugins/content/autoreadmore/src', false, false, 'psr4');
+	}
 	}
 	/**
 		 * Loads English and the national to prevent untranslated constants

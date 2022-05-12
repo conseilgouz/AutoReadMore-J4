@@ -2,6 +2,17 @@
 	<changelog>
 		<element>autoreadmore</element>
 		<type>plugin</type>
+		<version>5.0.5</version>
+        <note>
+            <item>12/05/2022</item>
+        </note>
+         <fix>
+            <item>Joomla 3.10 compatibility</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>autoreadmore</element>
+		<type>plugin</type>
 		<version>5.0.4</version>
         <note>
             <item>12/05/2022</item>
