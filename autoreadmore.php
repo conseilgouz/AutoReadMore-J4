@@ -73,7 +73,7 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 		 *
 		 * @return   void
 		 */
-		public function onContentPrepare($context, &$article, $params, $page=null)
+		public function onContentPrepare($context, &$article, &$params, $page=null)
 		{
 			if (!Factory::getApplication()->isClient('site'))
 			{
@@ -229,12 +229,12 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 			// apply content plugins
 			if ($context == 'com_content.category') {
 				PluginHelper::importPlugin('content');
-				$myparams = Factory::getApplication()->getParams();;
+				$myparams = $params;
 				$myparams->set("autoreadmore",true);
 				$item_cls = new \stdClass;
 				$item_cls->text = $text;
 				$item_cls->id = $article->id;
-				Factory::getApplication()->triggerEvent('onContentPrepare', array ($context, &$item_cls, $myparams, 0)); 
+				Factory::getApplication()->triggerEvent('onContentPrepare', array ($context, &$item_cls, &$myparams, 0)); 
 				$text = $item_cls->text; 
 			}
 			$ImageAsHTML = true;
