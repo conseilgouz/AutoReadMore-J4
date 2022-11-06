@@ -537,7 +537,7 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 
 			if (!is_array($item_ids))
 			{
-				$item_ids = array_map('trim', explode(',', $item_ids));
+				$item_ids = array_map('trim', explode(',', $item_ids ?? ''));
 			}
 
 			$category_switch = $data[$context]['category_switch'];
@@ -545,7 +545,7 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 
 			if (!is_array($category_ids))
 			{
-				$category_ids = array_map('trim', explode(',', $category_ids));
+				$category_ids = array_map('trim', explode(',', $category_ids ?? ''));
 			}
 
 			switch ($item_switch)
