@@ -7,7 +7,7 @@
 	<author>ConseilGouz</author>
 	<authorEmail>pascal.leconte@conseilgouz.com</authorEmail>
 	<authorUrl>https://www.conseilgouz.com</authorUrl>
-	<version>5.0.7</version>
+	<version>5.0.8</version>
 	<description>PLG_CONTENT_AUTOREADMORE_THANK_YOU_FOR_USING_AUTO_READ_MORE</description>
 	<namespace path="src">ConseilGouz\Plugin\Content\Autoreadmore</namespace>	
 	<files>
@@ -209,6 +209,8 @@
 		</fields>
 	</config>
 	<scriptfile>scriptfile.php</scriptfile>
-	<changelogurl>https://www.conseilgouz.com/updates/plg_autoreadmore_changelog.xml</changelogurl>
+	<changelogurl>
+		https://raw.githubusercontent.com/conseilgouz/AutoReadMore-J4/master/plg_autoreadmore_changelog.xml
+	</changelogurl>
 	<updateservers>
-	<servers type="extension" priority="1" name="autoreadmore">https://www.conseilgouz.com/updates/plg_autoreadmore_update.xml</servers></updateservers></extension>
+	<servers type="extension" priority="1" name="autoreadmore">https://raw.githubusercontent.com/conseilgouz/updates_github/master/plg_autoreadmore_update.xml</servers></updateservers></extension>

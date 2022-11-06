@@ -2,6 +2,17 @@
 	<changelog>
 		<element>autoreadmore</element>
 		<type>plugin</type>
+		<version>5.0.8</version>
+        <note>
+            <item>06/11/2022</item>
+        </note>
+         <change>
+            <item>Update/changelog files on github</item>
+        </change>
+	</changelog>
+	<changelog>
+		<element>autoreadmore</element>
+		<type>plugin</type>
 		<version>5.0.7</version>
         <note>
             <item>06/11/2022</item>
