@@ -2,6 +2,18 @@
 	<changelog>
 		<element>autoreadmore</element>
 		<type>plugin</type>
+		<version>5.0.9</version>
+        <note>
+            <item>07/01/2023</item>
+        </note>
+         <fix>
+            <item>Conflict with other content plugins (like Content Reading Time)</item>
+			<item>Notice JText undefined</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>autoreadmore</element>
+		<type>plugin</type>
 		<version>5.0.8</version>
         <note>
             <item>06/11/2022</item>

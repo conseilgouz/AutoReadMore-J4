@@ -4,7 +4,7 @@
  *
  * @from       https://github.com/gruz/AutoReadMore
  * @author     ConseilgGouz
- * @copyright (C) 2022 www.conseilgouz.com. All Rights Reserved.
+ * @copyright (C) 2023 www.conseilgouz.com. All Rights Reserved.
  * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
@@ -19,6 +19,7 @@ use Joomla\String\StringHelper;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\Registry\Registry;
 use Joomla\CMS\Version;
+use Joomla\CMS\Language\Text;
 use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 
 	class PlgContentAutoReadMore extends CMSPlugin
@@ -434,7 +435,7 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 
 			if ($this->params->get('readmore_text') && empty($this->alternative_readmore))
 			{
-				$article->alternative_readmore = JText::_($this->params->get('readmore_text'));
+				$article->alternative_readmore = Text::_($this->params->get('readmore_text'));
 			}
 
 			$debug_addon = '';
@@ -443,7 +444,8 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 			{
 				$debug_addon = '<code>[DEBUG: AutoReadMore fired here]</code>';
 			}
-
+			// conflict with other content plugins
+			if (isset($article->fulltext) && ($article->fulltext == ""))  $article->fulltext = $article->introtext;
 			$article->introtext = $text . $debug_addon;
 			$article->text = $text . $debug_addon;
 
