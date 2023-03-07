@@ -22,8 +22,16 @@ use Joomla\CMS\Version;
 use Joomla\CMS\Language\Text;
 use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 
-	class PlgContentAutoReadMore extends CMSPlugin
-				{
+	class PlgContentAutoReadMore extends CMSPlugin {
+	protected $plg_name;
+	protected $plg_type;
+	protected $plg_full_name;
+	protected $plg_path_relative;
+	protected $plg_path;
+	protected $params_content;
+	protected $fulltext_loaded;
+	protected $trimming_dots;
+	protected $alternative_readmore;
 	public function __construct(&$subject, $config)
 	{
 		parent::__construct($subject, $config);
