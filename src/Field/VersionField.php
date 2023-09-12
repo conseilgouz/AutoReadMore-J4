@@ -4,7 +4,7 @@
  *
  * @from       https://github.com/gruz/AutoReadMore
  * @author     ConseilgGouz
- * @copyright (C) 2022 www.conseilgouz.com. All Rights Reserved.
+ * @copyright (C) 2023 www.conseilgouz.com. All Rights Reserved.
  * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
@@ -27,6 +27,9 @@ class VersionField extends FormField
 	 * @var   string
 	 */
 	protected $_name = 'Version';
+	private $plg_full_name;
+	private $default_lang;
+	private $langShortCode;
 
 	function getInput()
 	{

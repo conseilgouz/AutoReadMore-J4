@@ -2,6 +2,18 @@
 	<changelog>
 		<element>autoreadmore</element>
 		<type>plugin</type>
+		<version>5.1.2</version>
+        <note>
+            <item>12/09/2023</item>
+        </note>
+         <fix>
+            <item>PHP 8.2 compatibility</item>
+            <item>remove scriptfile from installed directory</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>autoreadmore</element>
+		<type>plugin</type>
 		<version>5.1.1</version>
         <note>
             <item>12/09/2023</item>

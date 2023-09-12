@@ -1,4 +1,13 @@
 <?php
+/**
+ * AutoReadMore plugin
+ *
+ * @from       https://github.com/gruz/AutoReadMore
+ * @author     ConseilgGouz
+ * @copyright (C) 2023 www.conseilgouz.com. All Rights Reserved.
+ * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ */
+
 // No direct access to this file
 defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
@@ -68,7 +77,7 @@ class plgContentAutoreadmoreInstallerScript  {
 
 			Folder::delete($f);
 		}
-		$obsloteFiles = [sprintf("%s/plugins/content/%s/scriptary.php", JPATH_SITE, $this->extname)];
+		$obsloteFiles = [sprintf("%s/plugins/content/%s/scriptary.php", JPATH_SITE, $this->extname), sprintf("%s/plugins/content/%s/scriptfile.php", JPATH_SITE, $this->extname)];
 		foreach ($obsloteFiles as $file)
 		{
 			if (@is_file($file))
