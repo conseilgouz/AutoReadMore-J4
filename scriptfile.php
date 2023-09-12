@@ -61,10 +61,9 @@ class plgContentAutoreadmoreInstallerScript  {
 		if (($type=='install') || ($type == 'update')) { // remove obsolete dir/files
 			$this->postinstall_cleanup();
 			$this->enable_plugin();
-			
+			// Uninstall this installer
+			$this->uninstallInstaller();
 		}
-		// Uninstall this installer
-		$this->uninstallInstaller();
 		
 		return true;
     }
