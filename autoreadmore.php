@@ -51,7 +51,7 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 
 		$j = new Version();
 		$version=substr($j->getShortVersion(), 0,1); 
-		if ($version != "4") { // Joomla 4.0
+		if ($version < "4") { // Joomla 4.0
 			JLoader::registerNamespace('ConseilGouz\Plugin\Content\Autoreadmore', JPATH_SITE . '/plugins/content/autoreadmore/src', false, false, 'psr4');
 	}
 	}

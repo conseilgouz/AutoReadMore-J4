@@ -3,15 +3,17 @@
 defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\Filesystem\Folder;
+use Joomla\Filesystem\Folder;
 use Joomla\CMS\Version;
-use Joomla\CMS\Filesystem\File;
+use Joomla\Filesystem\File;
 
 class plgContentAutoreadmoreInstallerScript  {
 	
 	private $extname                 = 'autoreadmore';	
 	private $min_joomla_version      = '3.10.0';
 	private $min_php_version         = '7.2';
+	private $dir;
+	private $lang;
 	
 	public function __construct()
 	{
