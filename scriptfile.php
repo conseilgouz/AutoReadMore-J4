@@ -21,6 +21,8 @@ class plgContentAutoreadmoreInstallerScript  {
 	private $extname                 = 'autoreadmore';	
 	private $min_joomla_version      = '3.10.0';
 	private $min_php_version         = '7.2';
+	private $installerName = 'ContentAutoreadmoreInstaller';
+	
 	private $dir;
 	private $lang;
 	
@@ -59,7 +61,11 @@ class plgContentAutoreadmoreInstallerScript  {
 		if (($type=='install') || ($type == 'update')) { // remove obsolete dir/files
 			$this->postinstall_cleanup();
 			$this->enable_plugin();
+			
 		}
+		// Uninstall this installer
+		$this->uninstallInstaller();
+		
 		return true;
     }
 	
@@ -140,6 +146,26 @@ class plgContentAutoreadmoreInstallerScript  {
 
 		return true;
 	}
+	private function uninstallInstaller()
+	{
+		if ( ! is_dir(JPATH_PLUGINS . '/system/' . $this->installerName)) {
+			return;
+		}
+		$this->delete([
+			JPATH_PLUGINS . '/system/' . $this->installerName . '/language',
+			JPATH_PLUGINS . '/system/' . $this->installerName,
+		]);
+		$db = Factory::getDbo();
+		$query = $db->getQuery(true)
+			->delete('#__extensions')
+			->where($db->quoteName('element') . ' = ' . $db->quote($this->installerName))
+			->where($db->quoteName('folder') . ' = ' . $db->quote('system'))
+			->where($db->quoteName('type') . ' = ' . $db->quote('plugin'));
+		$db->setQuery($query);
+		$db->execute();
+		Factory::getCache()->clean('_system');
+	}
+	
 
 }
 ?>
