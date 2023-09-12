@@ -15,7 +15,6 @@
 		<filename>README.md</filename>
 		<filename plugin="autoreadmore">autoreadmore.php</filename>
 		<filename>index.html</filename>
-		<filename>scriptfile.php</filename>
 	</files>
     <languages>
 		<language tag="en-GB">language/en-GB/plg_content_autoreadmore.ini</language>
