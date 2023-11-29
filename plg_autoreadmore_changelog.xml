@@ -2,6 +2,17 @@
 	<changelog>
 		<element>autoreadmore</element>
 		<type>plugin</type>
+		<version>5.1.3</version>
+        <note>
+            <item>29/11/2023</item>
+        </note>
+         <fix>
+            <item>fix issue #7 : related to smartslider 3</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>autoreadmore</element>
+		<type>plugin</type>
 		<version>5.1.2</version>
         <note>
             <item>12/09/2023</item>

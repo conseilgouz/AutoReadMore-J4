@@ -88,10 +88,10 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 			{
 				return false;
 			}
-			if (is_object($params) && $params->get("autoreadmore")) {
+			if (is_object($params) && ($params instanceof Registry) && $params->get("autoreadmore")) {
 				return true;
 			}
-			
+
 			$jinput = Factory::getApplication()->input;
 
 			if ($jinput->get('option', null, 'CMD') == 'com_dump')
@@ -179,7 +179,7 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 				return;
 			}
 
-			if (is_object($params))
+			if (is_object($params) && ($params instanceof Registry))
 			{
 				$this->params_content = $params;
 			}
@@ -238,7 +238,7 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 			// apply content plugins
 			if ($context == 'com_content.category') {
 				PluginHelper::importPlugin('content');
-				$myparams = $params;
+				$myparams = $this->params_content;
 				$myparams->set("autoreadmore",true);
 				$item_cls = new \stdClass;
 				$item_cls->text = $text;
