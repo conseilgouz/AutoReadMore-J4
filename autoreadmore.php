@@ -4,8 +4,8 @@
  *
  * @from       https://github.com/gruz/AutoReadMore
  * @author     ConseilgGouz
- * @copyright (C) 2023 www.conseilgouz.com. All Rights Reserved.
- * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ * @copyright (C) 2024 www.conseilgouz.com. All Rights Reserved.
+ * @license    GNU/GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
  */
 
 // No direct access
@@ -124,12 +124,12 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 						echo '<pre style="height:180px;overflow:auto;">';
 						echo '<b>Context : ' . $context . '</b><br />';
 						echo '<b>Content Item object : </b><br />';
-						print_r($article);
+						print_r(json_decode(json_encode($article)));
 
 						if (!empty($params))
 						{
 							echo '<b>Params:</b><br />';
-							print_r($params);
+							print_r(json_decode(json_encode($params)));
 						}
 						else
 						{
@@ -501,6 +501,11 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 					'item_ids' => $this->params->get($prefix . 'id'),
 				);
 				$data[$context] = $row;
+			}
+			if ($this->params->get('joomla_articles')  &&  ($context == 'com_content.category') ) {
+			    if (($this->params->get('joomla_articles_featured',1) == 0) && ($article->featured == 1))  
+				// ignore featured items in category view
+					return false;
 			}
 
 			$context_switch = $this->params->get('context_switch');

@@ -4,8 +4,8 @@
  *
  * @from       https://github.com/gruz/AutoReadMore
  * @author     ConseilgGouz
- * @copyright (C) 2023 www.conseilgouz.com. All Rights Reserved.
- * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ * @copyright (C) 2024 www.conseilgouz.com. All Rights Reserved.
+ * @license    GNU/GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
  */
 
 // No direct access to this file
