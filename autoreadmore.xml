@@ -51,7 +51,7 @@
 	<config>
 		<fields name="params" >
 			<fieldset name="basic" group="settings" label="JOPTIONS" addfieldprefix="ConseilGouz\Plugin\Content\Autoreadmore\Field">
-				<field name="version" type="version" extension="AUTOREADMORE" xml="/plugins/content/autoreadmore/autoreadmore.xml"/>
+				<field name="version" type="version" extension="AUTOREADMORE" xml="/plugins/content/autoreadmore/autoreadmore.xml" margintop="-3em"/>
 			
 				<field name="debug" type="list" default="0" label="PLG_CONTENT_AUTOREADMORE_LIMITTYPE_LABEL_DEBUG">
 					<option value="0">JDISABLED</option>

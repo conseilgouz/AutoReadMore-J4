@@ -4,7 +4,7 @@
  *
  * @from       https://github.com/gruz/AutoReadMore
  * @author     ConseilgGouz
- * @copyright (C) 2023 www.conseilgouz.com. All Rights Reserved.
+ * @copyright (C) 2024 www.conseilgouz.com. All Rights Reserved.
  * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
@@ -88,7 +88,15 @@ class VersionField extends FormField
 		$css .= ".readonly.plg-desc {font-weight:normal;}";
 		$css .= "fieldset.radio label {width:auto;}";
 		$document->addStyleDeclaration($css);
-
+		$margintop = $this->def('margintop');
+		if (StringHelper::strlen($margintop)) {
+			$js = "document.addEventListener('DOMContentLoaded', function() {
+			vers = document.querySelector('.version');
+			parent = vers.parentElement.parentElement;
+			parent.style.marginTop = '".$margintop."';
+			})";
+			$document->addScriptDeclaration($js);
+		}
 		$return .= '<span class="version">' . Text::_('JVERSION') . ' ' . $version . "</span>";
 
 		return $return;
