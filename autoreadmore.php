@@ -20,9 +20,13 @@ use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\Registry\Registry;
 use Joomla\CMS\Version;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Table\Table;
+use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
 use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 
-	class PlgContentAutoReadMore extends CMSPlugin {
+	class PlgContentAutoReadMore extends CMSPlugin 
+	{
 	protected $plg_name;
 	protected $plg_type;
 	protected $plg_full_name;
@@ -32,13 +36,12 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 	protected $fulltext_loaded;
 	protected $trimming_dots;
 	protected $alternative_readmore;
-	public function __construct(&$subject, $config)
+	public function __construct(&$subject, $config) 
 	{
 		parent::__construct($subject, $config);
 		$jinput = Factory::getApplication()->input;
 
-		if ($jinput->get('option', null) == 'com_dump')
-		{
+		if ($jinput->get('option', null) == 'com_dump')	{
 			return;
 		}
 
@@ -53,7 +56,7 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 		$version=substr($j->getShortVersion(), 0,1); 
 		if ($version < "4") { // Joomla 4.0
 			JLoader::registerNamespace('ConseilGouz\Plugin\Content\Autoreadmore', JPATH_SITE . '/plugins/content/autoreadmore/src', false, false, 'psr4');
-	}
+		}
 	}
 	/**
 		 * Loads English and the national to prevent untranslated constants
@@ -82,10 +85,9 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 		 *
 		 * @return   void
 		 */
-		public function onContentPrepare($context, &$article, &$params, $page=null)
+		public function onContentPrepare($context, &$article, &$params, $page=null) 
 		{
-			if (!Factory::getApplication()->isClient('site'))
-			{
+			if (!Factory::getApplication()->isClient('site')) {
 				return false;
 			}
 			if (is_object($params) && ($params instanceof Registry) && $params->get("autoreadmore")) {
@@ -94,45 +96,34 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 
 			$jinput = Factory::getApplication()->input;
 
-			if ($jinput->get('option', null, 'CMD') == 'com_dump')
-			{
+			if ($jinput->get('option', null, 'CMD') == 'com_dump') {
 				return;
 			}
 
 			// SOME SPECIAL RETURNS }
 			$debug = $this->params->get('debug',false);
 
-			if ($debug)
-			{
-				if (function_exists('dump') && false)
-				{
+			if ($debug)	{
+				if (function_exists('dump') && false) {
 					dump($article, 'context = ' . $context);
-				}
-				else
-				{
-					if ($debug == 1)
-					{
+				} else {
+					if ($debug == 1) {
 						Factory::getApplication()->enqueueMessage(
 						'Context : ' . $context . '<br />' .
 						'Title : ' . @$article->title . '<br />' .
 						'Id : ' . @$article->id . '<br />' .
 						'CatId : ' . @$article->catid . '<br />',
 						'warning');
-					}
-					elseif ($debug == 2)
-					{
+					} elseif ($debug == 2) {
 						echo '<pre style="height:180px;overflow:auto;">';
 						echo '<b>Context : ' . $context . '</b><br />';
 						echo '<b>Content Item object : </b><br />';
 						print_r(json_decode(json_encode($article)));
 
-						if (!empty($params))
-						{
+						if (!empty($params)) {
 							echo '<b>Params:</b><br />';
 							print_r(json_decode(json_encode($params)));
-						}
-						else
-						{
+						} else {
 							echo '<b>Params NOT passed</b><br />';
 						}
 
@@ -140,9 +131,9 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 					}
 				}
 			}
+			if ($context == "text") return; // it's not an article => ignore it
 
-			if ($context == 'com_tags.tag')
-			{
+			if ($context == 'com_tags.tag') {
 				// $context = $article->type_alias;
 				$article->catid = $article->core_catid;
 				$article->id = $article->content_item_id;
@@ -151,8 +142,7 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 
 			$thereIsPluginCode = false;
 
-			if ($this->params->get('PluginCode','ignore') != 'ignore')
-			{
+			if ($this->params->get('PluginCode','ignore') != 'ignore') {
 				$possibleParams = array('text', 'introtext', 'fulltext');
 
 				foreach ($possibleParams as $paramName)
@@ -169,47 +159,35 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 				}
 			}
 
-			if (!$this->_checkIfAllowedContext($context, $article))
-			{
+			if (!$this->_checkIfAllowedContext($context, $article)) {
 				return;
 			}
 
-			if (!$this->_checkIfAllowedCategoryAndItem($context, $article))
-			{
+			if (!$this->_checkIfAllowedCategoryAndItem($context, $article))	{
 				return;
 			}
 
-			if (is_object($params) && ($params instanceof Registry))
-			{
+			if (is_object($params) && ($params instanceof Registry)) {
 				$this->params_content = $params;
-			}
-			elseif (is_array($params))
-			{
+			} elseif (is_array($params)) {
 				$this->params_content = (object) $params;
-			}
-			else
-			{
+			} else {
 				$this->params_content = new Registry;
-
 				// Load my plugin params.
 				$this->params_content->loadString($params, 'JSON');
 			}
 
 			// Add css code
-			if (!isset($GLOBALS['+xji*;!1']))
-			{
+			if (!isset($GLOBALS['+xji*;!1'])) {
 				$doc = Factory::getDocument();
 				$csscode = $this->params->get('csscode','');
 				$doc->addStyleDeclaration($csscode);
 				$GLOBALS['+xji*;!1'] = true;
 			}
-			if (isset($article->introtext))
-			{
+			if (isset($article->introtext))	{
 				// For core article
 				$text = $article->introtext;
-			}
-			else
-			{
+			} else {
 				// In most non core content items and modules
 				$text = $article->text;
 			}
@@ -217,8 +195,7 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 			// Fulltext is not loaded, we must load it manually if needed
 			$this->fulltext_loaded = false;
 
-			if ($this->params->get('Ignore_Existing_Read_More') && isset($article->introtext) && isset($article->fulltext))
-			{
+			if ($this->params->get('Ignore_Existing_Read_More') && isset($article->introtext) && isset($article->fulltext)) {
 				$text = $article->introtext . PHP_EOL . $article->fulltext;
 				if (file_exists(JPATH_PLUGINS ."/content/cck")) { //check if Seblod is installed
 				    $text = preg_replace( '/::cck::(\d+)::\/cck::/', '', $text ) ; //remove the ::cck:: tags
@@ -228,9 +205,7 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 				    $text = preg_replace( '/::\/fulltext::/', '', $text ) ; //remove the ::fulltext:: tags, keep content
 				}
 				$this->fulltext_loaded = true;
-			}
-			elseif ($this->params->get('Ignore_Existing_Read_More') && isset($article->readmore) && $article->readmore > 0 )
-			{
+			} elseif ($this->params->get('Ignore_Existing_Read_More') && isset($article->readmore) && $article->readmore > 0 ) {
 				// If we ignore manual readmore and we know it's present, then we must load the full text
 				$text .= $this->loadFullText($article->id);
 				$this->fulltext_loaded = true;
@@ -248,8 +223,7 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 			}
 			$ImageAsHTML = true;
 
-			if (in_array($context, array("com_content.featured", "com_content.category")))
-			{
+			if (in_array($context, array("com_content.featured", "com_content.category"))) {
 				$ImageAsHTML = $this->params->get('ImageAsHTML');
 			}
 
@@ -274,40 +248,33 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 			// $GLOBALS['plg_content_AutoReadMore_Count']+1 : 1;
 
 			// ~ if ($GLOBALS['plg_content_AutoReadMore_Count'] <= $num_leading_articles)
-			if ($globalCount <= $num_leading_articles)
-			{
+			if ($globalCount <= $num_leading_articles) {
 				// This is a leading (full-width) article.
 				$maxLimit = $this->params->get('leadingMax');
-			}
-			else
-			{
+			} else {
 				// This is not a leading article.
 				$maxLimit = $this->params->get('introMax');
 			}
 
-			if (!is_numeric($maxLimit))
-			{
+			if (!is_numeric($maxLimit))	{
 				$maxLimit = 500;
 			}
 
 			$this->trimming_dots = '';
 
-			if ($this->params->get('add_trimming_dots') != 0)
-			{
+			if ($this->params->get('add_trimming_dots') != 0) {
 				$this->trimming_dots = $this->params->get('trimming_dots');
 			}
 
 			$limittype = $this->params->get('limittype');
 
-			if (isset($article->readmore))
-			{
+			if (isset($article->readmore)) {
 				$original_readmore = $article->readmore;
 			}
 
 			$noSpaceLanguage = $this->params->get('noSpaceLanguage');
 
-			switch ($this->params->get('PluginCode'))
-			{
+			switch ($this->params->get('PluginCode')) {
 				case 'only':
 					if (!$thereIsPluginCode)
 					{
@@ -328,12 +295,9 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 			}
 
 			// Limit by chars
-			if ($limittype == 0)
-			{
-				if (StringHelper::strlen(strip_tags($text)) > $maxLimit)
-				{
-					if ($this->params->get('Strip_Formatting') == 1)
-					{
+			if ($limittype == 0) {
+				if (StringHelper::strlen(strip_tags($text)) > $maxLimit) {
+					if ($this->params->get('Strip_Formatting') == 1) {
 						// First, remove all new lines
 						$text = preg_replace("/\r\n|\r|\n/", "", $text);
 
@@ -358,15 +322,12 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 
 						// Replace \n with <br />
 						$text = str_replace("\n", "<br />", $text);
-					}
-					else
-					{
+					} else {
 						// Truncate
 						// $text = StringHelper::substr($text, 0, $maxLimit);
 						$text = AutoReadMoreString::truncate($text, $maxLimit, '&hellip;', true, $noSpaceLanguage);
 
-						if (!$noSpaceLanguage)
-						{
+						if (!$noSpaceLanguage) {
 							// Pop off the last word in case it got cut in the middle
 							$text = preg_replace("/[.,!?:;]? [^ ]*$/", "", $text);
 						}
@@ -382,37 +343,25 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 					// Add a "read more" link, makes sense only for com_content
 					$article->readmore = true;
 				}
-			}
-			// Limit by words
-			elseif ($limittype == 1)
-			{
+			} elseif ($limittype == 1) { // Limit by words
 				$original_length = StringHelper::strlen($text);
 				$text = AutoReadMoreString::truncateByWords($text, $maxLimit, $article->readmore);
 				$newLength = StringHelper::strlen($text);
 
-				if ($newLength !== $original_length)
-				{
+				if ($newLength !== $original_length) {
 					$article->readmore = true;
 				}
 
 				$text = $this->addTrimmingDots($text);
 				$text = AutoReadMoreString::cleanUpHTML($text);
-			}
-			// Limit by paragraphs
-			elseif ($limittype == 2)
-			{
+			} elseif ($limittype == 2) { // Limit by paragraphs
 				$paragraphs = explode('</p>', $text);
 
-				if (count($paragraphs) <= ($maxLimit + 1))
-				{
-					// Do nothing, as we have $maxLimit paragraphs
-				}
-				else
-				{
+				if (count($paragraphs) <= ($maxLimit + 1)) { // Do nothing, as we have $maxLimit paragraphs
+				} else {
 					$text = array();
 
-					for ($i = 0; $i < $maxLimit; $i++)
-					{
+					for ($i = 0; $i < $maxLimit; $i++) {
 						$text[] = $paragraphs[$i];
 					}
 
@@ -422,34 +371,29 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 				}
 			}
 
-			if ($this->params->get('Strip_Formatting') == 1)
-			{
+			if ($this->params->get('Strip_Formatting') == 1) {
 				$text = strip_tags($text);
 			}
 
 			// If we have thumbnails, add it to $text.
-			if ($this->params->get('Force_Image_Count'))
-			{
+			if ($this->params->get('Force_Image_Count')) {
 				$text = preg_replace("/<img[^>]+\>/i", '', $text);
 			}
 
 			$text = $thumbnails . $text;
 
-			if ($this->params->get('wrap_output') == 1)
-			{
+			if ($this->params->get('wrap_output') == 1) {
 				$template = $this->params->get('wrap_output_template');
 				$text = str_replace('%OUTPUT%', $text, $template);
 			}
 
-			if ($this->params->get('readmore_text') && empty($this->alternative_readmore))
-			{
+			if ($this->params->get('readmore_text') && empty($this->alternative_readmore)) {
 				$article->alternative_readmore = Text::_($this->params->get('readmore_text'));
 			}
 
 			$debug_addon = '';
 
-			if ($debug)
-			{
+			if ($debug)	{
 				$debug_addon = '<code>[DEBUG: AutoReadMore fired here]</code>';
 			}
 			// conflict with other content plugins
@@ -457,10 +401,8 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 			$article->introtext = $text . $debug_addon;
 			$article->text = $text . $debug_addon;
 
-			if (isset($article->readmore) && !$article->readmore)
-			{
-				if (!$this->params->get('Ignore_Existing_Read_More') && isset($original_readmore))
-				{
+			if (isset($article->readmore) && !$article->readmore) {
+				if (!$this->params->get('Ignore_Existing_Read_More') && isset($original_readmore)) {
 					$article->readmore = $original_readmore;
 				}
 			}
@@ -474,10 +416,9 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 		 *
 		 * @return   bool  True if has to be parsed
 		 */
-		public function _checkIfAllowedCategoryAndItem ($context, $article)
+		public function _checkIfAllowedCategoryAndItem ($context, $article) 
 		{
-			if (!isset($article->catid) && !isset($article->id) )
-			{
+			if (!isset($article->catid) && !isset($article->id) ) {
 				return true;
 			}
 
@@ -485,12 +426,10 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 
 			// Prepare data from joomla core articles or frontpage
 			if (($this->params->get('joomla_articles')		&& 	$context == 'com_content.category')
-				||	($this->params->get('Enabled_Front_Page')	&& 	$context == 'com_content.featured')	)
-			{
+				||	($this->params->get('Enabled_Front_Page')	&& 	$context == 'com_content.featured')	) {
 				$prefix = '';
 
-				if ($context == 'com_content.featured')
-				{
+				if ($context == 'com_content.featured')	{
 					$prefix = 'fp_';
 				}
 
@@ -510,24 +449,19 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 
 			$context_switch = $this->params->get('context_switch');
 
-			if ($context_switch == 'include')
-			{
+			if ($context_switch == 'include') {
 				$paramsContexts = $this->params->get('contextsToInclude');
 				$contextsToInclude = json_decode($paramsContexts);
 
 				// The default joomla installation procedure doesn't store defaut params into the DB in the correct way
-				if (!empty($paramsContexts) && $contextsToInclude === null)
-				{
+				if (!empty($paramsContexts) && $contextsToInclude === null) {
 					$paramsContexts = str_replace("'", '"', $paramsContexts);
 					$contextsToInclude = json_decode($paramsContexts);
 				}
 
-				if (!empty($contextsToInclude) && !empty($contextsToInclude->context))
-				{
-					foreach ($contextsToInclude->context as $k => $v)
-					{
-						if ($v != $context)
-						{
+				if (!empty($contextsToInclude) && !empty($contextsToInclude->context)) {
+					foreach ($contextsToInclude->context as $k => $v) {
+						if ($v != $context)	{
 							continue;
 						}
 
@@ -542,33 +476,28 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 				}
 			}
 
-			if (empty($data[$context]))
-			{
+			if (empty($data[$context]))	{
 				return true;
 			}
 
 			$item_switch = $data[$context]['item_switch'];
 			$item_ids = $data[$context]['item_ids'];
 
-			if (!is_array($item_ids))
-			{
+			if (!is_array($item_ids)) {
 				$item_ids = array_map('trim', explode(',', $item_ids ?? ''));
 			}
 
 			$category_switch = $data[$context]['category_switch'];
 			$category_ids = $data[$context]['category_ids'];
 
-			if (!is_array($category_ids))
-			{
+			if (!is_array($category_ids)) {
 				$category_ids = array_map('trim', explode(',', $category_ids ?? ''));
 			}
 
-			switch ($item_switch)
-			{
+			switch ($item_switch) {
 				// Some articles are selected
 				case '1':
-					if (in_array($article->id, $item_ids))
-					{
+					if (in_array($article->id, $item_ids)) {
 						return true;
 					}
 					break;
@@ -576,8 +505,7 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 				// Some articles are excluded
 				case '2':
 					// If the article is among the excluded ones - return false
-					if (in_array($article->id, $item_ids))
-					{
+					if (in_array($article->id, $item_ids)) {
 						return false;
 					}
 					break;
@@ -590,8 +518,7 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 
 			$in_array = in_array($article->catid, $category_ids);
 
-			switch ($category_switch)
-			{
+			switch ($category_switch) {
 				// ALL CATS
 				case '0':
 					return true;
@@ -599,8 +526,7 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 
 				// Selected cats
 				case '1':
-					if ($in_array)
-					{
+					if ($in_array) {
 						return true;
 					}
 
@@ -609,8 +535,7 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 
 				// Excludes cats
 				case '2':
-					if ($in_array)
-					{
+					if ($in_array) {
 						return false;
 					}
 
@@ -631,7 +556,7 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 		 *
 		 * @return  bool  true if allowed, false otherwise
 		 */
-		public function _checkIfAllowedContext ($context, $article)
+		public function _checkIfAllowedContext ($context, $article) 
 		{
 			$jinput = Factory::getApplication()->input;
 			$context_global = explode('.', $context);
@@ -650,29 +575,24 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 				// because the user must be allowed to choose this. At some circumstances joomla HTML modules may be needed to cut
 			);
 
-			if (in_array($context_global, $hard_coded_exclude_global_contexts) || in_array($context, $contextsToExclude)  )
-			{
+			if (in_array($context_global, $hard_coded_exclude_global_contexts) || in_array($context, $contextsToExclude)  )	{
 				return false;
 			}
 
 			// SOME SPECIAL RETURNS {
 			// Fix easyblog
-			if ($context == 'easyblog.blog' && $jinput->get('view', null, 'CMD') == 'entry')
-			{
+			if ($context == 'easyblog.blog' && $jinput->get('view', null, 'CMD') == 'entry') {
 				return false;
 			}
 
 			$view = $jinput->get('view', null, 'CMD');
 			$article_id = $jinput->get('id', null, 'INT');
 
-			if (isset($article->id))
-			{
+			if (isset($article->id)) {
 				if ( ($view == "article" && $article->id == $article_id)
-					|| ($context == 'com_k2.item' && $article->id == $article_id))
-				{
+					|| ($context == 'com_k2.item' && $article->id == $article_id)) {
 					// If it's already a full article - go away'
-					if (!isset($GLOBALS['joomlaAutoReadMorePluginArticleShown']) )
-					{
+					if (!isset($GLOBALS['joomlaAutoReadMorePluginArticleShown']) ) {
 						// But leave a flag not to go aways in a module
 						$GLOBALS['joomlaAutoReadMorePluginArticleShown'] = $article_id;
 
@@ -681,45 +601,28 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 				}
 			}
 
-			if ($this->params->get('Enabled_Front_Page') == 0 and $context == 'com_content.featured')
-			{
+			if ($this->params->get('Enabled_Front_Page') == 0 and $context == 'com_content.featured') {
 				return false;
-			}
-			elseif ($this->params->get('Enabled_Front_Page') == 1 and $context == 'com_content.featured')
-			{
+			} elseif ($this->params->get('Enabled_Front_Page') == 1 and $context == 'com_content.featured')	{
 				return true;
 			}
 
-			if ($this->params->get('joomla_articles') == 0 and $context == 'com_content.category')
-			{
+			if ($this->params->get('joomla_articles') == 0 and $context == 'com_content.category') {
 				return false;
-			}
-			elseif ($context == 'com_content.categories')
-			{
-				if ($this->params->get('joomla_articles_parse_category'))
-				{
+			} elseif ($context == 'com_content.categories') {
+				if ($this->params->get('joomla_articles_parse_category')) {
 					return true;
-				}
-				else
-				{
+				} else {
 					return false;
 				}
-			}
-			elseif ($this->params->get('joomla_articles') == 1 and in_array($context, ['com_content.category', 'com_content.categories']) )
-			{
+			} elseif ($this->params->get('joomla_articles') == 1 and in_array($context, ['com_content.category', 'com_content.categories']) ) {
 				// If it's an article, as a category desc doesn't contain anything in it's object except ->text
-				if (isset($article->id))
-				{
+				if (isset($article->id)) {
 					return true;
-				}
-				else
-				{
-					if ($this->params->get('joomla_articles_parse_category'))
-					{
+				} else {
+					if ($this->params->get('joomla_articles_parse_category')) {
 						return true;
-					}
-					else
-					{
+					} else {
 						return false;
 					}
 				}
@@ -727,25 +630,20 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 
 			$context_switch = $this->params->get('context_switch');
 
-			switch ($context_switch)
-			{
+			switch ($context_switch) {
 				case 'include':
 					$paramsContexts = $this->params->get('contextsToInclude');
 					$contextsToInclude = json_decode($paramsContexts);
 
 					// The default joomla installation procedure doesn't store defaut params into the DB in the correct way
-					if (!empty($paramsContexts) && $contextsToInclude === null)
-					{
+					if (!empty($paramsContexts) && $contextsToInclude === null) {
 						$paramsContexts = str_replace("'", '"', $paramsContexts);
 						$contextsToInclude = json_decode($paramsContexts);
 					}
 
-					if (!empty($contextsToInclude) && !empty($contextsToInclude->context))
-					{
-						foreach ($contextsToInclude->context as $k => $v)
-						{
-							if ($context == $v)
-							{
+					if (!empty($contextsToInclude) && !empty($contextsToInclude->context)) {
+						foreach ($contextsToInclude->context as $k => $v) {
+							if ($context == $v) {
 								return true;
 							}
 						}
@@ -754,16 +652,14 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 					return false;
 				case 'exclude':
 					// Not to work on modules, like mod_roksprocket.article
-					if ($this->params->get('exclude_mod_contexts') && strpos($context, 'mod_') === 0)
-					{
+					if ($this->params->get('exclude_mod_contexts') && strpos($context, 'mod_') === 0) {
 						return false;
 					}
 
 					$contextsToExclude = $this->params->get('contextsToExclude');
 					$contextsToExclude = array_map('trim', explode(",", $contextsToExclude));
 
-					if (in_array($context, $contextsToExclude))
-					{
+					if (in_array($context, $contextsToExclude)) {
 						return false;
 					}
 					break;
@@ -772,8 +668,7 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 					break;
 				case 'all_disabled':
 					// This check just in case, should never come here in such a case
-					if (!in_array($context, array('com_content.category', 'com_content.featured')))
-					{
+					if (!in_array($context, array('com_content.category', 'com_content.featured'))) {
 						return false;
 					}
 					break;
@@ -791,18 +686,14 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 		 *
 		 * @return  string  Text with added trimming symbol(s)
 		 */
-		public function addTrimmingDots($text)
+		public function addTrimmingDots($text) 
 		{
 			// Add ... to the end of the article if the last character is a letter or a number.
-			if ($this->params->get('add_trimming_dots') == 2)
-			{
-				if (preg_match('/\w/ui', StringHelper::substr($text, -1)))
-				{
+			if ($this->params->get('add_trimming_dots') == 2) {
+				if (preg_match('/\w/ui', StringHelper::substr($text, -1))) {
 					$text = trim($text) . $this->trimming_dots;
 				}
-			}
-			else
-			{
+			} else {
 				$text = trim($text) . $this->trimming_dots;
 			}
 
@@ -818,7 +709,7 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 		 */
 		public function loadFullText ($id)
 		{
-			$article = JTable::getInstance("content");
+			$article = Table::getInstance("content",'JTable');
 			$article->load($id);
 
 			$article->fulltext_loaded = true;
@@ -839,8 +730,7 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 		public function getThumbNails( & $text, & $article, $context, $ImageAsHTML = true)
 		{
 			// Are we working with any thumbnails?
-			if ($this->params->get('Thumbnails') < 1)
-			{
+			if ($this->params->get('Thumbnails') < 1) {
 				return;
 			}
 
@@ -871,8 +761,7 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 
 			$fulltext = '';
 
-			foreach ($patterns as $pattern)
-			{
+			foreach ($patterns as $pattern)	{
 				// Extract all images from the article.
 				$imagesfound  = preg_match_all($pattern, $text, $matches);
 
@@ -882,25 +771,19 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 
 				$json = json_decode($article->images);
 
-				if (!empty($json->image_intro))
-				{
+				if (!empty($json->image_intro))	{
 					$totalThumbNails--;
 				}
 
-				if ($totalThumbNails < 0)
-				{
+				if ($totalThumbNails < 0) {
 					$totalThumbNails = 0;
 				}
 
-				if ($imagesfound < $totalThumbNails && empty($fulltext))
-				{
+				if ($imagesfound < $totalThumbNails && empty($fulltext)) {
 
-					if (isset($article->fulltext))
-					{
+					if (isset($article->fulltext)) {
 						$fulltext = $article->fulltext;
-					}
-					elseif(isset($article->id) && !$this->fulltext_loaded && in_array($context, array('com_content.category','com_content.featured')))
-					{
+					} elseif(isset($article->id) && !$this->fulltext_loaded && in_array($context, array('com_content.category','com_content.featured'))) {
 						$this->loadFullText($article->id);
 					}
 
@@ -911,14 +794,12 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 				$matches = array_merge($matches_tmp, $matches[0]);
 
 
-				foreach ($matches as $km => $match)
-				{
+				foreach ($matches as $km => $match) {
 					$placeholder = '// ##mygruz20170704012529###' . $km . '###// ##mygruz20170704012529';
 					$text = str_replace($match, $placeholder, $text);
 					$fulltext = str_replace($match, $placeholder, $fulltext);
 
-					if (!in_array($match, $total_matches))
-					{
+					if (!in_array($match, $total_matches)) {
 						$total_matches[$placeholder] = $match;
 					}
 				}
@@ -926,18 +807,15 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 
 			$matches = [];
 
-			foreach ($total_matches as $placeholder => $match)
-			{
+			foreach ($total_matches as $placeholder => $match) {
 				$text = str_replace($placeholder, $match, $text);
 
 				$matches[] = $match;
 			}
 
 			// Loop through the thumbnails.
-			for ($thumbnail = 0; $thumbnail < $totalThumbNails; $thumbnail++)
-			{
-				if (!isset($matches[$thumbnail]))
-				{
+			for ($thumbnail = 0; $thumbnail < $totalThumbNails; $thumbnail++) {
+				if (!isset($matches[$thumbnail])) {
 					break;
 				}
 
@@ -945,39 +823,29 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 				$text = str_replace($matches[$thumbnail], '', $text);
 
 				// See if we need to remove styling.
-				if (trim($this->params->get('Thumbnails_Class')) != '')
-				{
+				if (trim($this->params->get('Thumbnails_Class')) != '') {
 					// Remove style, class, width, border, and height attributes.
-					if ($this->params->get('Strip_Image_Formatting'))
-					{
+					if ($this->params->get('Strip_Image_Formatting')) {
 						// Add CSS class name.
 						$matches[$thumbnail] = preg_replace('/(style|class|width|height|border) ?= ?[\'"][^\'"]*[\'"]/i', '', $matches[$thumbnail]);
 						$matches[$thumbnail] = preg_replace('@/?>$@', 'class="' . $this->params->get('Thumbnails_Class') . '" />', $matches[$thumbnail]);
-					}
-					else
-					{
+					} else {
 						$matches[$thumbnail] = preg_replace('@(class=["\'])@', '$1' . $this->params->get('Thumbnails_Class') . ' ', $matches[$thumbnail], -1, $count);
 
-						if ($count < 1)
-						{
+						if ($count < 1)	{
 							$matches[$thumbnail] = preg_replace('@/?>$@', 'class="' . $this->params->get('Thumbnails_Class') . '" />', $matches[$thumbnail]);
 						}
 					}
 				}
 
-				if (trim($matches[$thumbnail]) != '')
-				{
-					if ($ImageAsHTML)
-					{
+				if (trim($matches[$thumbnail]) != '') {
+					if ($ImageAsHTML) {
 						$thumbnails[] = $matches[$thumbnail];
-					}
-					elseif ($thumbnail === 0 )
-					{
+					} elseif ($thumbnail === 0 ) {
 						// Just flag for later see if there was at least one image
 						$thumbnails[] = '';
 
-						foreach (array('image_intro' => 'src', 'image_intro_alt' => 'alt',  'image_intro_caption' => 'title') as $k => $v)
-						{
+						foreach (array('image_intro' => 'src', 'image_intro_alt' => 'alt',  'image_intro_caption' => 'title') as $k => $v) {
 							$match = null;
 							preg_match('@' . $v . '="([^"]+)"@', $matches[$thumbnail], $match);
 
@@ -988,32 +856,24 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 				}
 			}
 
-			if (empty($thumbnails) && trim($this->params->get('default_image')) != '' )
-			{
+			if (empty($thumbnails) && trim($this->params->get('default_image')) != '' )	{
 				$Thumbnails_Class = $this->params->get('Thumbnails_Class');
 				$Thumbnails_Class_Check = trim($Thumbnails_Class);
 
-				if (!empty($Thumbnails_Class_Check))
-				{
+				if (!empty($Thumbnails_Class_Check)) {
 					$Thumbnails_Class = ' class="' . $Thumbnails_Class . '"';
-				}
-				else
-				{
+				} else {
 					$Thumbnails_Class = '';
 				}
 
-				if ($ImageAsHTML)
-				{
+				if ($ImageAsHTML) {
 					$thumbnails[] = '<img ' . $Thumbnails_Class . ' src="' . $this->params->get('default_image') . '">';
-				}
-				elseif (empty($json->image_intro))
-				{
+				} elseif (empty($json->image_intro)) {
 					$json->image_intro = $this->params->get('default_image');
 				}
 			}
 
-			if (!$ImageAsHTML)
-			{
+			if (!$ImageAsHTML) {
 				$article->images = json_encode($json);
 			}
 
@@ -1021,12 +881,10 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 			// $matches[$thumbnail] = "<a href='" . $link . "'>{$matches[$thumbnail]}</a>";
 
 			// Add to the list of thumbnails.
-			if ($this->params->get('image_link_to_article') && $ImageAsHTML)
-			{
+			if ($this->params->get('image_link_to_article') && $ImageAsHTML) {
 				$jinput = Factory::getApplication()->input;
 
-				while (true)
-				{
+				while (true) {
 					$option = $jinput->get('option', null, 'CMD');
 
 					// Do not create link for K2, VM and so on
@@ -1036,43 +894,38 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 								'com_k2',
 								'com_virtuemart'
 							)
-						))
-					{
-						if (!empty($article->link))
-						{
+						)) {
+						if (!empty($article->link))	{
 							$link = $article->link;
 						}
 
 						break;
 					}
 
-					if (!isset($article->catid))
-					{
+					if (!isset($article->catid)) {
 						break;
 					}
 
-					if (!isset($article->slug))
-					{
+					if (!isset($article->slug))	{
 						$article->slug = '';
 					}
 
-					if (isset($article->router) && isset($article->catid))
-					{
-						$link = JRoute::_(call_user_func($article->router, $article->slug, $article->catid));
+					if (isset($article->router) && isset($article->catid)) {
+						$link = Route::_(call_user_func($article->router, $article->slug, $article->catid));
 						break;
 					}
 
 					if (isset($article->link))
 					{
 						$link = $article->link;
-						$link = JRoute::_($link);
+						$link = Route::_($link);
 						break;
 					}
 
 					// Prepare the article link
 					if ( $this->params_content->get('access-view') )
 					{
-						$link = JRoute::_(ContentHelperRoute::getArticleRoute($article->slug, $article->catid));
+						$link = Route::_(ContentHelperRoute::getArticleRoute($article->slug, $article->catid));
 					}
 					else
 					{
@@ -1085,9 +938,9 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 						}
 
 						$itemId = $active->id;
-						$link1 = JRoute::_('index.php?option=com_users&view=login&Itemid=' . $itemId);
-						$returnURL = JRoute::_(ContentHelperRoute::getArticleRoute($article->slug, $article->catid));
-						$link = new JURI($link1);
+						$link1 = Route::_('index.php?option=com_users&view=login&Itemid=' . $itemId);
+						$returnURL = Route::_(ContentHelperRoute::getArticleRoute($article->slug, $article->catid));
+						$link = new URI($link1);
 						$link->setVar('return', base64_encode($returnURL));
 					}
 
@@ -1103,22 +956,17 @@ use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 				}
 			}
 
-			if ($this->params->get('Force_Image_Count'))
-			{
-					foreach ($thumbnails as $k => $v)
-					{
-						if ($k > ($totalThumbNails - 1) )
-						{
+			if ($this->params->get('Force_Image_Count')) {
+					foreach ($thumbnails as $k => $v) {
+						if ($k > ($totalThumbNails - 1) ) {
 							unset($thumbnails[$k]);
 						}
 					}
 			}
 
-			if ($this->params->get('wrap_image_output') == 1)
-			{
+			if ($this->params->get('wrap_image_output') == 1) {
 				$template = $this->params->get('wrap_image_output_template');
-				foreach ($thumbnails as $kk => $vv)
-				{
+				foreach ($thumbnails as $kk => $vv)	{
 					$thumbnails[$kk] = str_replace('%OUTPUT%', $vv, $template);
 				}
 			}

@@ -2,6 +2,19 @@
 	<changelog>
 		<element>autoreadmore</element>
 		<type>plugin</type>
+		<version>5.1.7</version>
+        <note>
+            <item>14/02/2024</item>
+        </note>
+         <fix>
+            <item>Ignore text context</item>
+            <item>Joomla 5.x compatibility : replace JTable/JRouter/JUri</item>
+            <item>Apply Joomla 4.x code readability standard (PSR-12)</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>autoreadmore</element>
+		<type>plugin</type>
 		<version>5.1.6</version>
         <note>
             <item>04/02/2024</item>
