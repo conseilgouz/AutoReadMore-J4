@@ -21,7 +21,6 @@ use Joomla\Registry\Registry;
 use Joomla\CMS\Version;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Table\Table;
-use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
 

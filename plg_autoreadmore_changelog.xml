@@ -2,6 +2,17 @@
 	<changelog>
 		<element>autoreadmore</element>
 		<type>plugin</type>
+		<version>5.1.8</version>
+        <note>
+            <item>14/02/2024</item>
+        </note>
+         <fix>
+            <item>Table already defined error</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>autoreadmore</element>
+		<type>plugin</type>
 		<version>5.1.7</version>
         <note>
             <item>14/02/2024</item>
