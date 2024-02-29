@@ -2,6 +2,17 @@
 	<changelog>
 		<element>autoreadmore</element>
 		<type>plugin</type>
+		<version>5.1.9</version>
+        <note>
+            <item>29/02/2024</item>
+        </note>
+         <fix>
+            <item>changelogurl should be on a single line</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>autoreadmore</element>
+		<type>plugin</type>
 		<version>5.1.8</version>
         <note>
             <item>14/02/2024</item>
