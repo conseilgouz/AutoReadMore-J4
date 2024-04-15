@@ -2,6 +2,23 @@
 	<changelog>
 		<element>autoreadmore</element>
 		<type>plugin</type>
+		<version>5.2.0</version>
+        <note>
+            <item>15/04/2024</item>
+        </note>
+        <change>
+            <item>Becomes a service provider</item>
+            <item>Change parameters to radio buttons</item>
+            <item>Always display Readmore button text parameter</item>
+            <item>Change example link</item>
+        </change>
+        <fix>
+            <item>Image links : wrong router</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>autoreadmore</element>
+		<type>plugin</type>
 		<version>5.1.9</version>
         <note>
             <item>29/02/2024</item>
