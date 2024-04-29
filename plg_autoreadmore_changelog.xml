@@ -9,6 +9,9 @@
         <fix>
             <item>Jed Checker errors</item>
         </fix>
+        <change>
+            <item>htmLawed version 1.2.15</item>
+        </change>
 	</changelog>
     <changelog>
 		<element>autoreadmore</element>
