@@ -9,12 +9,9 @@
         <fix>
             <item>Jed Checker errors</item>
         </fix>
-        <change>
-            <item>htmLawed version 1.2.15</item>
-        </change>
         <remove>
             <item>Remove htmLawed, use HTMLHelper truncateComplex instead</item>
-        <remove>
+        </remove>
 	</changelog>
     <changelog>
 		<element>autoreadmore</element>

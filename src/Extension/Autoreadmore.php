@@ -93,13 +93,15 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
                     echo '<pre style="height:180px;overflow:auto;">';
                     echo '<b>Context : ' . $context . '</b><br />';
                     echo '<b>Content Item object : </b><br />';
-                    printf("%s",print_r(json_decode(json_encode($article))));
+                    print_r(json_decode(json_encode($article)));
+
                     if (!empty($params)) {
                         echo '<b>Params:</b><br />';
-                        printf("%s",print_r(json_decode(json_encode($params))));
+                        print_r(json_decode(json_encode($params)));
                     } else {
                         echo '<b>Params NOT passed</b><br />';
                     }
+
                     echo '</pre>' . PHP_EOL;
                 }
             }
