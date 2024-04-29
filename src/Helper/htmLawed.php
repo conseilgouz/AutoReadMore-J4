@@ -13,7 +13,7 @@
  * @author     Santosh Patnaik <drpatnaikREMOVECAPS@yahoo.com>
  * @copyright  (c) 2007-, Santosh Patnaik
  * @dependency None
- * @license    LGPL 3 and GPL 2+ dual license
+ * @license    LGPL 3 and GNU/GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
  * @link       https://bioinformatics.org/phplabware/internal_utilities/htmLawed
  * @package    htmLawed
  * @php        >=4.4
