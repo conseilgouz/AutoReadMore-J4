@@ -14,6 +14,7 @@ namespace ConseilGouz\Plugin\Content\Autoreadmore\Extension;
 defined('_JEXEC') or die('Restricted access');
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\CMS\Plugin\PluginHelper;
@@ -298,9 +299,7 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
                     $text = str_replace("\n", "<br />", $text);
                 } else {
                     // Truncate
-                    // $text = StringHelper::substr($text, 0, $maxLimit);
-                    $text = AutoReadMoreString::truncate($text, $maxLimit, '&hellip;', true, $noSpaceLanguage);
-
+                    $text = HTMLHelper::_('string.truncateComplex',$text,$maxLimit,true);
                     if (!$noSpaceLanguage) {
                         // Pop off the last word in case it got cut in the middle
                         $text = preg_replace("/[.,!?:;]? [^ ]*$/", "", $text);

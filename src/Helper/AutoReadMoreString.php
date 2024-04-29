@@ -114,9 +114,7 @@ class AutoReadMoreString
 	 * @return	string
 	 */
 	static function cleanUpHTML($text) {
-		if (!function_exists('htmLawed')) { require_once (dirname(__FILE__).'/htmLawed.php'); }
 		$text = preg_replace('/<[^>]*$/ui', '', $text);
-		$text = htmLawed($text);
 		return $text;
 	}
 

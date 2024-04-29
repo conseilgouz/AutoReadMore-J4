@@ -12,6 +12,9 @@
         <change>
             <item>htmLawed version 1.2.15</item>
         </change>
+        <remove>
+            <element>Remove htmLawed, use HTMLHelper truncateComplex instead</element>
+        <remove>
 	</changelog>
     <changelog>
 		<element>autoreadmore</element>
