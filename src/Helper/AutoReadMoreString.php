@@ -7,7 +7,7 @@
  * @from       https://github.com/gruz/AutoReadMore
  * @author     ConseilgGouz
  * @copyright (C) 2022 www.conseilgouz.com. All Rights Reserved.
- * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ * @license    GNU/GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
  */
 namespace ConseilGouz\Plugin\Content\Autoreadmore\Helper;
 // No direct access

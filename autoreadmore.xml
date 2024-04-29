@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.10" type="plugin" group="content" method="upgrade">
 	<name>PLG_CONTENT_AUTOREADMORE_TITLE</name>
-	<creationDate>2024-04-15</creationDate>
+	<creationDate>2024-04-29</creationDate>
 	<copyright>Copyright (C) 2024 Conseilgouz All rights reserved.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
 	<author>ConseilGouz</author>
 	<authorEmail>pascal.leconte@conseilgouz.com</authorEmail>
 	<authorUrl>https://www.conseilgouz.com</authorUrl>
-	<version>5.2.0</version>
+	<version>5.2.1</version>
 	<description>PLG_CONTENT_AUTOREADMORE_THANK_YOU_FOR_USING_AUTO_READ_MORE</description>
 	<namespace path="src">ConseilGouz\Plugin\Content\Autoreadmore</namespace>	
 	<files>
@@ -26,7 +26,7 @@
 		<language tag="et-EE">language/et-EE/plg_content_autoreadmore.ini</language>
 		<language tag="et-EE">language/et-EE/plg_content_autoreadmore.sys.ini</language>
 		<language tag="fa-IR">language/fa-IR/plg_content_autoreadmore.ini</language>
-		<language tag="fa-IR">language/da-IR/plg_content_autoreadmore.sys.ini</language>
+		<language tag="fa-IR">language/fa-IR/plg_content_autoreadmore.sys.ini</language>
 		<language tag="fr-FR">language/fr-FR/plg_content_autoreadmore.ini</language>
 		<language tag="fr-FR">language/fr-FR/plg_content_autoreadmore.sys.ini</language>
 		<language tag="it-IT">language/it-IT/plg_content_autoreadmore.ini</language>
@@ -50,7 +50,7 @@
 	</languages>
 	<config>
 		<fields name="params" >
-			<fieldset name="basic" group="settings" label="JOPTIONS" addfieldprefix="ConseilGouz\Plugin\Content\Autoreadmore\Field">
+			<fieldset name="basic" label="JOPTIONS" addfieldprefix="ConseilGouz\Plugin\Content\Autoreadmore\Field">
 				<field name="version" type="version" extension="AUTOREADMORE" xml="/plugins/content/autoreadmore/autoreadmore.xml" margintop="-3em"/>
 			
 				<field name="debug" type="radio" class="btn-group " default="0" label="PLG_CONTENT_AUTOREADMORE_LIMITTYPE_LABEL_DEBUG">
@@ -210,7 +210,7 @@
 				<field  name="readmore_text" type="text" default="" label="PLG_CONTENT_AUTOREADMORE_READMORE_TEXT" description="PLG_CONTENT_AUTOREADMORE_READMORE_TEXT_DESC"/> 
 				<field showon="usertype:1" name="readmore_guest" type="text" default="" label="PLG_CONTENT_AUTOREADMORE_READMORE_GUEST" description="PLG_CONTENT_AUTOREADMORE_READMORE_GUEST_DESC"/> 
 			</fieldset>
-			<fieldset name="thumbnails" group="thumbnails" label="PLG_CONTENT_AUTOREADMORE_THUMBNAIL_SETTINGS_LABEL">
+			<fieldset name="thumbnails" label="PLG_CONTENT_AUTOREADMORE_THUMBNAIL_SETTINGS_LABEL">
 				<field name="Thumbnails" type="text" default="0" label="PLG_CONTENT_AUTOREADMORE_THUMBNAILS_LABEL" description="PLG_CONTENT_AUTOREADMORE_THUMBNAILS_DESC"/>
 				<field name="Force_Image_Count" type="radio" class="btn-group btn-group-yesno" default="0" label="PLG_CONTENT_AUTOREADMORE_FORCE_IMAGE_COUNT_LABEL" description="PLG_CONTENT_AUTOREADMORE_FORCE_IMAGE_COUNT_DESC" maxrepeatlength="1">
 					<option value="1">JYes</option>
@@ -267,4 +267,5 @@
 	<scriptfile>scriptfile.php</scriptfile>
 	<changelogurl>https://raw.githubusercontent.com/conseilgouz/AutoReadMore-J4/master/plg_autoreadmore_changelog.xml</changelogurl>
 	<updateservers>
-	<servers type="extension" priority="1" name="autoreadmore">https://raw.githubusercontent.com/conseilgouz/updates_github/master/plg_autoreadmore_update.xml</servers></updateservers></extension>
+	<server type="extension" priority="1" name="autoreadmore">https://raw.githubusercontent.com/conseilgouz/updates_github/master/plg_autoreadmore_update.xml</server>
+    </updateservers></extension>

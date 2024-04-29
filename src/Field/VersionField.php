@@ -63,7 +63,7 @@ class VersionField extends FormField
 
 		$extension = $this->def('extension');
 
-		$user = Factory::getUser();
+		$user = Factory::getApplication()->getIdentity();
 		$authorise = $user->authorise('core.manage', 'com_installer');
 
 		if (!StringHelper::strlen($extension) || !StringHelper::strlen($xml) || !$authorise)
