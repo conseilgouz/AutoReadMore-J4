@@ -9,7 +9,8 @@
         <fix>
             <item>Jed Checker errors</item>
         </fix>
-	</changelog    <changelog>
+	</changelog>
+    <changelog>
 		<element>autoreadmore</element>
 		<type>plugin</type>
 		<version>5.2.0</version>
