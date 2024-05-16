@@ -2,6 +2,17 @@
 	<changelog>
 		<element>autoreadmore</element>
 		<type>plugin</type>
+		<version>5.2.3</version>
+        <note>
+            <item>16/05/2024</item>
+        </note>
+        <fix>
+            <item>Forgot to copy htmLawed library in helper dir</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>autoreadmore</element>
+		<type>plugin</type>
 		<version>5.2.2</version>
         <note>
             <item>16/05/2024</item>
