@@ -6,7 +6,7 @@
  *
  * @from       https://github.com/gruz/AutoReadMore
  * @author     ConseilgGouz
- * @copyright (C) 2022 www.conseilgouz.com. All Rights Reserved.
+ * @copyright (C) 2024 www.conseilgouz.com. All Rights Reserved.
  * @license    GNU/GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
  */
 namespace ConseilGouz\Plugin\Content\Autoreadmore\Helper;
@@ -114,7 +114,9 @@ class AutoReadMoreString
 	 * @return	string
 	 */
 	static function cleanUpHTML($text) {
+		if (!function_exists('htmLawed')) { require_once (dirname(__FILE__).'/htmLawed.php'); }
 		$text = preg_replace('/<[^>]*$/ui', '', $text);
+		$text = htmLawed($text);
 		return $text;
 	}
 
