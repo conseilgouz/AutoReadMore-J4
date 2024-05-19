@@ -805,7 +805,7 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
             $text = str_replace($matches[$thumbnail], '', $text);
 
             // See if we need to remove styling.
-            if (trim($this->params->get('Thumbnails_Class')) != '') {
+            if (trim($this->params->get('Thumbnails_Class','')) != '') {
                 // Remove style, class, width, border, and height attributes.
                 if ($this->params->get('Strip_Image_Formatting')) {
                     // Add CSS class name.
@@ -838,7 +838,7 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
             }
         }
 
-        if (empty($thumbnails) && trim($this->params->get('default_image')) != '') {
+        if (empty($thumbnails) && trim($this->params->get('default_image','')) != '') {
             $Thumbnails_Class = $this->params->get('Thumbnails_Class');
             $Thumbnails_Class_Check = trim($Thumbnails_Class);
 

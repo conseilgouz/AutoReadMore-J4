@@ -8,6 +8,7 @@
         </note>
         <fix>
             <item>NL Language files (thank you Astrid)</item>
+            <item>suppress notice Deprecated: trim(): Passing null to parameter 1</item>
         </fix>
 	</changelog>
 	<changelog>
