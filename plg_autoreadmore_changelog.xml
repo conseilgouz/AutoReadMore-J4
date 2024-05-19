@@ -2,6 +2,17 @@
 	<changelog>
 		<element>autoreadmore</element>
 		<type>plugin</type>
+		<version>5.2.5</version>
+        <note>
+            <item>19/05/2024</item>
+        </note>
+        <change>
+            <item>Force image : use fulltext image if no other image found</item>
+        </change>
+	</changelog>
+	<changelog>
+		<element>autoreadmore</element>
+		<type>plugin</type>
 		<version>5.2.4</version>
         <note>
             <item>19/05/2024</item>
