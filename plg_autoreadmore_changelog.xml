@@ -2,6 +2,17 @@
 	<changelog>
 		<element>autoreadmore</element>
 		<type>plugin</type>
+		<version>5.2.7</version>
+        <note>
+            <item>22/05/2024</item>
+        </note>
+        <addition>
+            <item>Add merge paragraph option if existing readmore are to be ignored</item>
+        </addition>
+	</changelog>
+	<changelog>
+		<element>autoreadmore</element>
+		<type>plugin</type>
 		<version>5.2.6</version>
         <note>
             <item>22/05/2024</item>
