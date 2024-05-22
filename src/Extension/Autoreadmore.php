@@ -154,11 +154,11 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
         }
 
         // Add css code
-        if (!isset($GLOBALS['+xji*;!1'])) {
-            $doc = Factory::getDocument();
-            $csscode = $this->params->get('csscode', '');
-            $doc->addStyleDeclaration($csscode);
-            $GLOBALS['+xji*;!1'] = true;
+        $csscode = $this->params->get('csscode', '');
+        if ($csscode) {
+            /** @var Joomla\CMS\WebAsset\WebAssetManager $wa */
+            $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
+            $wa->addInlineStyle($csscode);
         }
         if (isset($article->introtext)) {
             // For core article
@@ -167,7 +167,6 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
             // In most non core content items and modules
             $text = $article->text;
         }
-
         // Fulltext is not loaded, we must load it manually if needed
         $this->fulltext_loaded = false;
 
@@ -186,6 +185,10 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
             $text .= $this->loadFullText($article->id);
             $this->fulltext_loaded = true;
         }
+        if (PluginHelper::isEnabled('pagebuilderck', 'image')) { // Page builder CK Conflict
+            $text = preg_replace('/\|URIROOT\|/', Uri::root(true), $text);
+        }
+
         // apply content plugins
         if ($context == 'com_content.category') {
             PluginHelper::importPlugin('content');
