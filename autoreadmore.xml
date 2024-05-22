@@ -180,6 +180,11 @@
 					<option value="1">JYes</option>
 					<option value="0">JNo</option>
 				</field>
+				<field name="Merge_After_Ignore" showon="Ignore_Existing_Read_More:1" type="radio" class="btn-group btn-group-yesno" default="0" 
+                label="PLG_CONTENT_AUTOREADMORE_MERGE_AFTER_IGNORE_LABEL" description="PLG_CONTENT_AUTOREADMORE_MERGE_AFTER_IGNORE_DESC">
+					<option value="1">JYes</option>
+					<option value="0">JNo</option>
+				</field>
 
 				<field name="PluginCode" type="radio" class="btn-group" default="ignore" label="PLG_CONTENT_AUTOREADMORE_PLUGINCODE" 
                 description="PLG_CONTENT_AUTOREADMORE_PLUGINCODE_DESCRIPTION">
