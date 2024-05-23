@@ -134,7 +134,15 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
                 }
             }
         }
-
+        if ($context == 'com_content.article') {
+            // ignore existing read more + merge paragraphs => do it also in article context
+            if ($this->params->get('Ignore_Existing_Read_More') && isset($article->introtext) && isset($article->fulltext)) {
+                if ($this->params->get('Merge_After_Ignore', 0)) {// merge intro + fulltext => ignore last </p> intro, first <p> fulltext
+                    $article->text = preg_replace('/<\/.*$/', '', $article->introtext).preg_replace('/<p[^>]*>/', '', $article->fulltext, 1);
+                    return;
+                }
+            }
+        }
         if (!$this->_checkIfAllowedContext($context, $article)) {
             return;
         }
@@ -171,7 +179,7 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
         $this->fulltext_loaded = false;
 
         if ($this->params->get('Ignore_Existing_Read_More') && isset($article->introtext) && isset($article->fulltext)) {
-            if ($this->params->get('Merge_After_Ignore', 0)) {// merge intro + fulltext => ignore last </p> intro, first <p> fulltext 
+            if ($this->params->get('Merge_After_Ignore', 0)) {// merge intro + fulltext => ignore last </p> intro, first <p> fulltext
                 $text = preg_replace('/<\/.*$/', '', $article->introtext).preg_replace('/<p[^>]*>/', '', $article->fulltext, 1);
             } else {
                 $text = $article->introtext . PHP_EOL . $article->fulltext;
