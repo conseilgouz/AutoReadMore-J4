@@ -2,6 +2,17 @@
 	<changelog>
 		<element>autoreadmore</element>
 		<type>plugin</type>
+		<version>5.2.8</version>
+        <note>
+            <item>04/06/2024</item>
+        </note>
+        <fix>
+            <item>typo in dutch language file</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>autoreadmore</element>
+		<type>plugin</type>
 		<version>5.2.7</version>
         <note>
             <item>22/05/2024</item>
