@@ -4,3 +4,5 @@ Adds Readmore button automatically for Joomla 3.10/J4.x/J5.x articles
 
 * from Gruz <arygroup@gmail.com>
 * fork from https://github.com/gruz/AutoReadMore
+
+Find some information about this plugin <a href='https://github.com/conseilgouz/AutoReadMore-J4/wiki'>on its wiki</a>
