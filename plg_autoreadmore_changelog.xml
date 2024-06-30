@@ -2,6 +2,20 @@
 	<changelog>
 		<element>autoreadmore</element>
 		<type>plugin</type>
+		<version>5.2.9</version>
+        <note>
+            <item>30/06/2024</item>
+        </note>
+        <addition>
+            <item>New parameter : readmore access to registered users only</item>
+        </addition>
+        <fix>
+            <item>Hide noSpaceLanguage parameter if limit type is not character</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>autoreadmore</element>
+		<type>plugin</type>
 		<version>5.2.8</version>
         <note>
             <item>04/06/2024</item>

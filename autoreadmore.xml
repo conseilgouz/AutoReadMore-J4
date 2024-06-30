@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.10" type="plugin" group="content" method="upgrade">
 	<name>PLG_CONTENT_AUTOREADMORE_TITLE</name>
-	<creationDate>2024-05-22</creationDate>
+	<creationDate>2024-06-30</creationDate>
 	<copyright>Copyright (C) 2024 Conseilgouz All rights reserved.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
 	<author>ConseilGouz</author>
 	<authorEmail>pascal.leconte@conseilgouz.com</authorEmail>
 	<authorUrl>https://www.conseilgouz.com</authorUrl>
-	<version>5.2.8</version>
+	<version>5.2.9</version>
 	<description>PLG_CONTENT_AUTOREADMORE_THANK_YOU_FOR_USING_AUTO_READ_MORE</description>
 	<namespace path="src">ConseilGouz\Plugin\Content\Autoreadmore</namespace>	
 	<files>
@@ -154,8 +154,8 @@
 
 				<field showon="context_switch:include,exclude" type="note" basetype="notefixed" name="note_reload" heading="span" class="alert" label="PLG_CONTENT_AUTOREADMORE_FIELD_CONTEXT_DESC" maxrepeatlength="1"/>
 
-<field name="readmore_users" type="hidden" class="alert-success alert-block" label="PLG_CONTENT_AUTOREADMORE_FIELD_READMORE_USERS"/>
-				<field name="usertype" type="hidden" class="btn-group" default="0" label="PLG_CONTENT_AUTOREADMORE_USERTYPE_LABEL" 
+<field name="readmore_users" type="note" class="alert-success alert-block" label="PLG_CONTENT_AUTOREADMORE_FIELD_READMORE_USERS"/>
+				<field name="usertype" type="radio" class="btn-group" default="0" label="PLG_CONTENT_AUTOREADMORE_USERTYPE_LABEL" 
                 description="PLG_CONTENT_AUTOREADMORE_USERTYPE_DESC">
 					<option value="0">PLG_CONTENT_AUTOREADMORE_USERTYPE_ALL</option>
 					<option value="1">PLG_CONTENT_AUTOREADMORE_USERTYPE_LOGGED</option>
@@ -168,7 +168,7 @@
 					<option value="1">PLG_CONTENT_AUTOREADMORE_LIMITTYPE_OPTION_WORDS</option>
 					<option value="2">PLG_CONTENT_AUTOREADMORE_LIMITTYPE_OPTION_PARAGRAPHS</option>
 				</field>
-				<field name="noSpaceLanguage" type="radio" class="btn-group btn-group-yesno" default="0" 
+				<field showon="limittype:0" name="noSpaceLanguage" type="radio" class="btn-group btn-group-yesno" default="0" 
                 label="PLG_CONTENT_AUTOREADMORE_NOSPACELANGUAGE" description="PLG_CONTENT_AUTOREADMORE_NOSPACELANGUAGE_DESC">
 					<option value="1">JYes</option>
 					<option value="0">JNo</option>
@@ -213,7 +213,7 @@
 				</field>
 				<field showon="add_trimming_dots:1,2" name="trimming_dots" type="text" default="..." label="PLG_CONTENT_AUTOREADMORE_TRIMMING_TEXT" description="" filter="raw"/>
 				<field  name="readmore_text" type="text" default="" label="PLG_CONTENT_AUTOREADMORE_READMORE_TEXT" description="PLG_CONTENT_AUTOREADMORE_READMORE_TEXT_DESC"/> 
-				<field showon="usertype:1" name="readmore_guest" type="text" default="" label="PLG_CONTENT_AUTOREADMORE_READMORE_GUEST" description="PLG_CONTENT_AUTOREADMORE_READMORE_GUEST_DESC"/> 
+				<field showon="usertype:1" name="readmore_guest" type="hidden" default="" label="PLG_CONTENT_AUTOREADMORE_READMORE_GUEST" description="PLG_CONTENT_AUTOREADMORE_READMORE_GUEST_DESC"/> 
 			</fieldset>
 			<fieldset name="thumbnails" label="PLG_CONTENT_AUTOREADMORE_THUMBNAIL_SETTINGS_LABEL">
 				<field name="Thumbnails" type="text" default="0" label="PLG_CONTENT_AUTOREADMORE_THUMBNAILS_LABEL" description="PLG_CONTENT_AUTOREADMORE_THUMBNAILS_DESC"/>

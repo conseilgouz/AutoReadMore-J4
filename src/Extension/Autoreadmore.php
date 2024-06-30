@@ -376,15 +376,15 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
             $text = str_replace('%OUTPUT%', $text, $template);
         }
 
-        if ($this->params->get('readmore_text') && empty($this->alternative_readmore)) {
-            if ($this->params->get('usertype', '0') && $user->guest) {
-                $article->params->set('access-view', 0); // block access
-                $article->alternative_readmore = Text::_($this->params->get('readmore_guest'));
-            } else {
-                $article->alternative_readmore = Text::_($this->params->get('readmore_text'));
-            }
+        //if ($this->params->get('readmore_text') && empty($this->alternative_readmore)) {
+        if ($this->params->get('usertype', '0') && $user->guest) {
+            $article->params->set('access-view', 0); // block access
+            // note : Joomla uses COM_CONTENT_REGISTER_TO_READ_MORE in components/com_content/tmpl/category/default_articles.php
+            // $article->alternative_readmore = Text::_($this->params->get('readmore_guest')); 
         }
-
+        if ($this->params->get('readmore_text') && empty($this->alternative_readmore)) {
+                $article->alternative_readmore = Text::_($this->params->get('readmore_text'));
+        }
         $debug_addon = '';
 
         if ($debug) {
