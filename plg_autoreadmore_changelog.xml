@@ -10,7 +10,8 @@
             <item>New parameter : readmore access to registered users only</item>
         </addition>
         <fix>
-            <item>Hide noSpaceLanguage parameter if limit type is not character</item>
+            <item>Hide noSpaceLanguage parameter if limittype is not character</item>
+            <item>Plugin's Parameters : normalize JNO/JYES Buttons order</item>
         </fix>
 	</changelog>
 	<changelog>

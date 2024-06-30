@@ -262,9 +262,10 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
         if (isset($article->readmore)) {
             $original_readmore = $article->readmore;
         }
-
         $noSpaceLanguage = $this->params->get('noSpaceLanguage');
-
+        if ($limittype > 0) {
+            $noSpaceLanguage = 0; // only apply if type = 0 (character)
+        }
         switch ($this->params->get('PluginCode')) {
             case 'only':
                 if (!$thereIsPluginCode) {

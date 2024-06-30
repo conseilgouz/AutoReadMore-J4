@@ -60,8 +60,8 @@
 				</field>
 <field name="contexts_to_run" type="note"  class="alert-success alert-block" label="PLG_CONTENT_AUTOREADMORE_FIELD_EXPLAIN_CONTEXTS_INCLUDE"/>
 				<field name="Enabled_Front_Page" type="radio" class="btn-group btn-group-yesno" default="1" label="PLG_CONTENT_AUTOREADMORE_ENABLED_FRONT_PAGE_LABEL" description="PLG_CONTENT_AUTOREADMORE_ENABLED_FRONT_PAGE_DESC">
-					<option value="1">JYes</option>
-					<option value="0">JNo</option>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field showon="Enabled_Front_Page:1" name="{Enabled_Front_Page_options" maxrepeatlength="1" type="note" basetype="blockquote" class="no-box-shadow" label=""/>
 				<!--	Select categories { -->
@@ -83,14 +83,14 @@
 				value_field="value" multiple="multiple" layout="joomla.form.field.list-fancy-select"/>
 
 				<field name="joomla_articles" type="radio" class="btn-group btn-group-yesno" default="1" label="PLG_CONTENT_AUTOREADMORE_FIELD_FOR_ARTICLES">
-					<option value="0">JNo</option>
-					<option value="1">JYes</option>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field showon="joomla_articles:1" name="joomla_articles_parse_category" type="radio" class="btn-group btn-group-yesno"
                 default="0" 
                 label="PLG_CONTENT_AUTOREADMORE_FIELD_PARSE_CATEGORY" description="PLG_CONTENT_AUTOREADMORE_FIELD_PARSE_CATEGORY_DESC">
-					<option value="0">JNo</option>
-					<option value="1">JYes</option>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<!--	Select categories { -->
 				<field showon="joomla_articles:1" name="categories_switch" type="radio" class="btn-group" default="0" label="PLG_CONTENT_AUTOREADMORE_FIELD_CATEGORIES" description="">
@@ -102,8 +102,8 @@
 				<!--	Select articles { -->
 				<field showon="joomla_articles:1" name="joomla_articles_featured" type="radio" class="btn-group btn-group-yesno" default="0" 
                 label="PLG_CONTENT_AUTOREADMORE_FIELD_ARTICLES_FEATURED" description="PLG_CONTENT_AUTOREADMORE_FIELD_ARTICLES_FEATURED_DESC">
-					<option value="0">JNo</option>
-					<option value="1">JYes</option>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field showon="joomla_articles:1" name="articles_switch" type="radio" class="btn-group" default="0" 
                 label="PLG_CONTENT_AUTOREADMORE_FIELD_SPECIFIC_ARTICLES">
@@ -147,8 +147,8 @@
 				</field>
 				<field showon="context_switch:exclude" name="exclude_mod_contexts" type="radio" class="btn-group btn-group-yesno" default="1" 
                 label="PLG_CONTENT_AUTOREADMORE_FIELD_EXCLUDE_MOD_CONTEXTS" description="PLG_CONTENT_AUTOREADMORE_FIELD_EXCLUDE_MOD_CONTEXTS_DESC">
-							<option value="0">JNo</option>
-							<option value="1">JYes</option>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field showon="context_switch:exclude" name="contextsToExclude" type="textarea" label="PLG_CONTENT_AUTOREADMORE_FIELD_CONTEXTSTOEXCLUDE" default="mod_custom.content,"/>
 
@@ -170,20 +170,20 @@
 				</field>
 				<field showon="limittype:0" name="noSpaceLanguage" type="radio" class="btn-group btn-group-yesno" default="0" 
                 label="PLG_CONTENT_AUTOREADMORE_NOSPACELANGUAGE" description="PLG_CONTENT_AUTOREADMORE_NOSPACELANGUAGE_DESC">
-					<option value="1">JYes</option>
-					<option value="0">JNo</option>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field name="leadingMax" type="text" default="750" label="PLG_CONTENT_AUTOREADMORE_LEADING_MAX_LABEL" description="PLG_CONTENT_AUTOREADMORE_MAX_DESC"/>
 				<field name="introMax" type="text" default="500" label="PLG_CONTENT_AUTOREADMORE_INTRO_MAX_LABEL" description="PLG_CONTENT_AUTOREADMORE_MAX_DESC"/>
 				<field name="Ignore_Existing_Read_More" type="radio" class="btn-group btn-group-yesno" default="0" 
                 label="PLG_CONTENT_AUTOREADMORE_IGNORE_EXISTING_LABEL">
-					<option value="1">JYes</option>
-					<option value="0">JNo</option>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field name="Merge_After_Ignore" showon="Ignore_Existing_Read_More:1" type="radio" class="btn-group btn-group-yesno" default="0" 
                 label="PLG_CONTENT_AUTOREADMORE_MERGE_AFTER_IGNORE_LABEL" description="PLG_CONTENT_AUTOREADMORE_MERGE_AFTER_IGNORE_DESC">
-					<option value="1">JYes</option>
-					<option value="0">JNo</option>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 
 				<field name="PluginCode" type="radio" class="btn-group" default="ignore" label="PLG_CONTENT_AUTOREADMORE_PLUGINCODE" 
@@ -196,19 +196,19 @@
 
 				<field name="Strip_Formatting" type="radio" class="btn-group btn-group-yesno" default="0" 
                 label="PLG_CONTENT_AUTOREADMORE_STRIP_FORMATTING_LABEL" description="PLG_CONTENT_AUTOREADMORE_STRIP_FORMATTING_DESC">
-					<option value="1">JYes</option>
-					<option value="0">JNo</option>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field name="wrap_output" type="radio" class="btn-group btn-group-yesno" default="0" 
                 label="PLG_CONTENT_AUTOREADMORE_FIELD_WRAP_OUTPUT">
-					<option value="0">JNo</option>
-					<option value="1">JYes</option>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field showon="wrap_output:1" name="wrap_output_template" type="textarea" cols="80" rows="10" filter="raw" label="PLG_CONTENT_AUTOREADMORE_FIELD_WRAP_TEMPLATE" default="&lt;div class=&quot;autoreadmore&quot;&gt;%OUTPUT%&lt;/div&gt;" class="span8"/>
-				<field name="add_trimming_dots" type="radio" class="btn-group" default="0" 
+				<field name="add_trimming_dots" type="radio" class="btn-group btn-group-yesno" default="0" 
                 label="PLG_CONTENT_AUTOREADMORE_FIELD_ADD_TRIMMING_DOTS" description="PLG_CONTENT_AUTOREADMORE_FIELD_ADD_TRIMMING_DOTS_DESC">
-					<option value="0">JNo</option>
-					<option value="1">JYes</option>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 					<option value="2">PLG_CONTENT_AUTOREADMORE_FIELD_ADD_TRIMMING_DOTS_WHEN_NEEDED</option>
 				</field>
 				<field showon="add_trimming_dots:1,2" name="trimming_dots" type="text" default="..." label="PLG_CONTENT_AUTOREADMORE_TRIMMING_TEXT" description="" filter="raw"/>
@@ -218,35 +218,35 @@
 			<fieldset name="thumbnails" label="PLG_CONTENT_AUTOREADMORE_THUMBNAIL_SETTINGS_LABEL">
 				<field name="Thumbnails" type="text" default="0" label="PLG_CONTENT_AUTOREADMORE_THUMBNAILS_LABEL" description="PLG_CONTENT_AUTOREADMORE_THUMBNAILS_DESC"/>
 				<field name="Force_Image_Count" type="radio" class="btn-group btn-group-yesno" default="0" label="PLG_CONTENT_AUTOREADMORE_FORCE_IMAGE_COUNT_LABEL" description="PLG_CONTENT_AUTOREADMORE_FORCE_IMAGE_COUNT_DESC" maxrepeatlength="1">
-					<option value="1">JYes</option>
-					<option value="0">JNo</option>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 
 				<field name="default_image" type="text" default="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/200px-No_image_available.svg.png" label="PLG_CONTENT_AUTOREADMORE_DEFAULT_IMAGE" description="PLG_CONTENT_AUTOREADMORE_DEFAULT_IMAGE_DESC"/>
 
 				<field name="ImageAsHTML" type="radio" class="btn-group btn-group-yesno" default="1" 
                 label="PLG_CONTENT_AUTOREADMORE_IMAGE_AS_HTML" description="PLG_CONTENT_AUTOREADMORE_IMAGE_AS_HTML_DESC">
-					<option value="1">JYes</option>
-					<option value="0">JNo</option>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 
 				<field showon="ImageAsHTML:1" name="Thumbnails_Class" type="text" default="" label="PLG_CONTENT_AUTOREADMORE_THUMBNAILS_CLASS_LABEL" description="PLG_CONTENT_AUTOREADMORE_THUMBNAILS_CLASS_DESC"/>
 				<field showon="ImageAsHTML:1" name="image_link_to_article" type="radio" class="btn-group btn-group-yesno" default="0" 
                 label="PLG_CONTENT_AUTOREADMORE_IMAGE_LINK_TO_ARTICLE" description="">
-					<option value="1">JYes</option>
-					<option value="0">JNo</option>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field showon="ImageAsHTML:1" name="Strip_Image_Formatting" type="radio" class="btn-group btn-group-yesno" default="0" 
                 label="PLG_CONTENT_AUTOREADMORE_STRIP_FORMATTING_LABEL" description="PLG_CONTENT_AUTOREADMORE_STRIP_IMAGE_FORMATTING_DESC">
-					<option value="1">JYes</option>
-					<option value="0">JNo</option>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field showon="ImageAsHTML:1" name="csscode" default=".margin-h-8 {margin:8px;}" type="textarea" label="PLG_CONTENT_AUTOREADMORE_CSS_CODE_LABEL" description="PLG_CONTENT_AUTOREADMORE_CSS_CODE_DESC"/>
 
 				<field name="Force_Image_Handle" type="radio" class="btn-group btn-group-yesno" default="0" 
                 label="PLG_CONTENT_AUTOREADMORE_FORCE_IMAGE_HANDLE_LABEL" description="PLG_CONTENT_AUTOREADMORE_FORCE_IMAGE_HANDLE_DESC">
-					<option value="1">JYes</option>
-					<option value="0">JNo</option>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 
 
@@ -254,8 +254,8 @@
 
 				<field name="wrap_image_output" type="radio" class="btn-group btn-group-yesno" default="0" 
                 label="PLG_CONTENT_AUTOREADMORE_FIELD_WRAP_IMAGE_OUTPUT">
-					<option value="0">JNo</option>
-					<option value="1">JYes</option>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
 				</field>
 				<field showon="wrap_image_output:1" name="wrap_image_output_template" type="textarea" cols="80" rows="10" filter="raw" label="PLG_CONTENT_AUTOREADMORE_FIELD_WRAP_TEMPLATE" default="&lt;div class=&quot;image&quot;&gt;%OUTPUT%&lt;/div&gt;" class="span8"/>
 
