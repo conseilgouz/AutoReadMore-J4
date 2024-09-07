@@ -204,7 +204,7 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
         // apply content plugins
         if ($context == 'com_content.category') {
             PluginHelper::importPlugin('content');
-            $myparams = $this->params_content;
+            $myparams = clone $this->params_content;
             $myparams->set("autoreadmore", true);
             $item_cls = new \stdClass();
             $item_cls->text = $text;
