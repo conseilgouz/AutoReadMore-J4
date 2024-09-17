@@ -379,7 +379,11 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
 
         //if ($this->params->get('readmore_text') && empty($this->alternative_readmore)) {
         if ($this->params->get('usertype', '0') && $user->guest) {
-            $article->params->set('access-view', 0); // block access
+            if (isset($article->params)) {
+                if ($this->_checkIfAllowedCategoryLogged($article)) {
+                    $article->params->set('access-view', 0); // block access
+                }
+            }
             // note : Joomla uses COM_CONTENT_REGISTER_TO_READ_MORE in components/com_content/tmpl/category/default_articles.php
             // $article->alternative_readmore = Text::_($this->params->get('readmore_guest')); 
         }
@@ -544,7 +548,49 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
 
         return true;
     }
+    /**
+     * Checkis if the content item is allowed in logged only mode
+     *
+     * @param   object  $article  Content item object
+     *
+     * @return   bool  True if has to be parsed
+     */
+    public function _checkIfAllowedCategoryLogged($article)
+    {
+        $category_switch = $this->params->get('log_categories_switch');
+        $category_ids = $this->params->get('log_categories',array());
 
+        $in_array = in_array($article->catid, $category_ids);
+
+        switch ($category_switch) {
+            // ALL CATS
+            case '0':
+                return true;
+                break;
+
+                // Selected cats
+            case '1':
+                if ($in_array) {
+                    return true;
+                }
+
+                return false;
+                break;
+
+                // Excludes cats
+            case '2':
+                if ($in_array) {
+                    return false;
+                }
+
+                return true;
+                break;
+            default:
+                break;
+        }
+
+        return true;
+    }
     /**
      * Check if current context is allowed either by settings or by some hardcoded rules
      *

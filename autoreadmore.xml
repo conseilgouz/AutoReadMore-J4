@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.10" type="plugin" group="content" method="upgrade">
 	<name>PLG_CONTENT_AUTOREADMORE_TITLE</name>
-	<creationDate>2024-09-07</creationDate>
+	<creationDate>2024-09-17</creationDate>
 	<copyright>Copyright (C) 2024 Conseilgouz All rights reserved.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
 	<author>ConseilGouz</author>
@@ -160,6 +160,12 @@
 					<option value="0">PLG_CONTENT_AUTOREADMORE_USERTYPE_ALL</option>
 					<option value="1">PLG_CONTENT_AUTOREADMORE_USERTYPE_LOGGED</option>
 				</field>
+				<field showon="usertype:1" name="log_categories_switch" type="radio" class="btn-group" default="0" label="PLG_CONTENT_AUTOREADMORE_FIELD_CATEGORIES" description="PLG_CONTENT_AUTOREADMORE_FIELD_CATEGORIES_LOGGED_DESC">
+					<option value="1">PLG_CONTENT_AUTOREADMORE_FIELD_SELECTION</option>
+					<option value="2">PLG_CONTENT_AUTOREADMORE_FIELD_EXCLUDE_SELECTION</option>
+					<option value="0">JALL</option>
+				</field>
+				<field showon="usertype:1[AND]log_categories_switch:1,2" name="log_categories" type="category" extension="com_content" multiple="multiple" size="20" show_uncategorized="1" default="" label="" description="" layout="joomla.form.field.list-fancy-select"/>
 
 <field name="readmore_options" type="note" class="alert-success alert-block" label="PLG_CONTENT_AUTOREADMORE_FIELD_READMORE_OPTIONS"/>
 
