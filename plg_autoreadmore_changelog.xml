@@ -14,8 +14,6 @@
             <item>Readmore access to registered users only : select categories to use</item>
         </addition>
 	</changelog>
-        
-	</changelog>
 	<changelog>
 		<element>autoreadmore</element>
 		<type>plugin</type>
