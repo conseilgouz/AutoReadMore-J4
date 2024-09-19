@@ -209,7 +209,7 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
             $item_cls = new \stdClass();
             $item_cls->text = $text;
             $item_cls->id = $article->id;
-            Factory::getApplication()->triggerEvent('onContentPrepare', array($context, &$item_cls, &$myparams, 0));
+            Factory::getApplication()->triggerEvent('onContentPrepare', array($context, &$item_cls, $myparams, 0));
             $text = $item_cls->text;
         }
         $ImageAsHTML = true;
@@ -601,10 +601,10 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
      */
     public function _checkIfAllowedContext($context, $article)
     {
-        $jinput = Factory::getApplication()->input;
+        $app    = Factory::getApplication();
+        $jinput = $app->input;
         $context_global = explode('.', $context);
         $context_global = $context_global[0];
-
         // Some hard-coded contexts to exclude
         $hard_coded_exclude_global_contexts = array(
             'com_virtuemart', // Never fire for VirtueMart
@@ -612,7 +612,7 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
 
         $contextsToExclude = array(
             'com_tz_portfolio.p_article', // Never run for full article
-            'com_content.article', // Never run for full article
+            // 'com_content.article', // Never run for full article - DISABLED HERE, because mod_articles_news
 
             // 'mod_custom.content', // never run at a custom HTML module - DISABLED here,
             // because the user must be allowed to choose this. At some circumstances joomla HTML modules may be needed to cut
@@ -625,6 +625,10 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
         // SOME SPECIAL RETURNS {
         // Fix easyblog
         if ($context == 'easyblog.blog' && $jinput->get('view', null, 'CMD') == 'entry') {
+            return false;
+        }
+        // Fix easyblog
+        if ($context == 'com_content.article' && $app->scope != 'mod_articles_news') {
             return false;
         }
 

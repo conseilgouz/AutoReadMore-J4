@@ -2,9 +2,20 @@
 	<changelog>
 		<element>autoreadmore</element>
 		<type>plugin</type>
+		<version>5.3.1</version>
+        <note>
+            <item>19/09/2024</item>
+        </note>
+        <fix>
+            <item>mod_articles_news compatibility</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>autoreadmore</element>
+		<type>plugin</type>
 		<version>5.3.0</version>
         <note>
-            <item>31/09/2024</item>
+            <item>17/09/2024</item>
         </note>
         <fix>
             <item>Apply content plugins in autoreadmore messes up params</item>
