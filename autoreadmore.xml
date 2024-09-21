@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.10" type="plugin" group="content" method="upgrade">
 	<name>PLG_CONTENT_AUTOREADMORE_TITLE</name>
-	<creationDate>2024-09-19</creationDate>
+	<creationDate>2024-09-21</creationDate>
 	<copyright>Copyright (C) 2024 Conseilgouz All rights reserved.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
 	<author>ConseilGouz</author>
 	<authorEmail>pascal.leconte@conseilgouz.com</authorEmail>
 	<authorUrl>https://www.conseilgouz.com</authorUrl>
-	<version>5.3.1</version>
+	<version>5.3.2</version>
 	<description>PLG_CONTENT_AUTOREADMORE_THANK_YOU_FOR_USING_AUTO_READ_MORE</description>
 	<namespace path="src">ConseilGouz\Plugin\Content\Autoreadmore</namespace>	
 	<files>
@@ -16,6 +16,11 @@
 		<filename>README.md</filename>
 		<filename>index.html</filename>
 	</files>
+	<media destination="plg_content_autoreadmore" folder="media">
+		<folder>js</folder>
+		<folder>css</folder>
+		<filename>index.html</filename>
+	</media>
     <languages>
 		<language tag="da-DK">language/da-DK/plg_content_autoreadmore.ini</language>
 		<language tag="da-DK">language/da-DK/plg_content_autoreadmore.sys.ini</language>
@@ -50,7 +55,9 @@
 	</languages>
 	<config>
 		<fields name="params" >
-			<fieldset name="basic" label="JOPTIONS" addfieldprefix="ConseilGouz\Plugin\Content\Autoreadmore\Field">
+			<fieldset name="basic" label="JOPTIONS" 
+                addfieldprefix="ConseilGouz\Plugin\Content\Autoreadmore\Field" 
+                addruleprefix="ConseilGouz\Plugin\Content\Autoreadmore\Rule" >
 				<field name="version" type="version" extension="AUTOREADMORE" xml="/plugins/content/autoreadmore/autoreadmore.xml" margintop="-3em"/>
 			
 				<field name="debug" type="radio" class="btn-group " default="0" label="PLG_CONTENT_AUTOREADMORE_LIMITTYPE_LABEL_DEBUG">
@@ -218,8 +225,21 @@
 					<option value="2">PLG_CONTENT_AUTOREADMORE_FIELD_ADD_TRIMMING_DOTS_WHEN_NEEDED</option>
 				</field>
 				<field showon="add_trimming_dots:1,2" name="trimming_dots" type="text" default="..." label="PLG_CONTENT_AUTOREADMORE_TRIMMING_TEXT" description="" filter="raw"/>
-				<field  name="readmore_text" type="text" default="" label="PLG_CONTENT_AUTOREADMORE_READMORE_TEXT" description="PLG_CONTENT_AUTOREADMORE_READMORE_TEXT_DESC"/> 
-				<field showon="usertype:1" name="readmore_guest" type="hidden" default="" label="PLG_CONTENT_AUTOREADMORE_READMORE_GUEST" description="PLG_CONTENT_AUTOREADMORE_READMORE_GUEST_DESC"/> 
+				<field name="multilg" type="sql" label="" description="" class="d-none"
+				query="SELECT count(*) as value FROM #__languages where published = 1"
+				key_field="value" value_field="value" />
+				<field  showon="multilg:1" name="readmore_text" type="text" default="" label="PLG_CONTENT_AUTOREADMORE_READMORE_TEXT" description="PLG_CONTENT_AUTOREADMORE_READMORE_TEXT_DESC"/> 
+                <field  showon="multilg!:1" name="readmore_list" type="subform" multiple ="true" 
+                    label="PLG_CONTENT_AUTOREADMORE_READMORE_LIST" description="PLG_CONTENT_AUTOREADMORE_READMORE_LIST_DESC" 
+                    validate="cgform"> 
+                    <form>
+                        <field name="readmore_list_lang" type="sql" label="" description="" 
+                        query="SELECT lang_code,title FROM #__languages where published = 1"
+                        key_field="lang_code" value_field="title" />
+                        <field name="readmore_list_text" type="text" label="" description="" 
+                         />
+                    </form>
+                </field>
 			</fieldset>
 			<fieldset name="thumbnails" label="PLG_CONTENT_AUTOREADMORE_THUMBNAIL_SETTINGS_LABEL">
 				<field name="Thumbnails" type="text" default="0" label="PLG_CONTENT_AUTOREADMORE_THUMBNAILS_LABEL" description="PLG_CONTENT_AUTOREADMORE_THUMBNAILS_DESC"/>

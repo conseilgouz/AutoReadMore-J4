@@ -22,6 +22,7 @@ use Joomla\CMS\Table\Table;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Component\Content\Site\Helper\RouteHelper;
 use Joomla\Event\SubscriberInterface;
+use Joomla\CMS\Language\LanguageHelper;
 use Joomla\Registry\Registry;
 use Joomla\String\StringHelper;
 use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
@@ -387,8 +388,22 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
             // note : Joomla uses COM_CONTENT_REGISTER_TO_READ_MORE in components/com_content/tmpl/category/default_articles.php
             // $article->alternative_readmore = Text::_($this->params->get('readmore_guest')); 
         }
-        if ($this->params->get('readmore_text') && empty($this->alternative_readmore)) {
+        $languages = LanguageHelper::getLanguages();
+        if (count($languages) == 1) { // one language
+            if ($this->params->get('readmore_text') && empty($this->alternative_readmore)) {
                 $article->alternative_readmore = Text::_($this->params->get('readmore_text'));
+            }
+        } else { // multilanguages site
+            $app        = Factory::getApplication();
+            $curlang    = $app->getLanguage();            
+            if (($texts = $this->params->get('readmore_list')) && empty($this->alternative_readmore)) {
+                foreach($texts as $onetext) {
+                    if ($onetext->readmore_list_lang == $curlang->getTag()) {
+                        $article->alternative_readmore = $onetext->readmore_list_text;
+                        break;
+                    }
+                }
+            }
         }
         $debug_addon = '';
 
