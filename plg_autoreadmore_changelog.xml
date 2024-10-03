@@ -8,6 +8,7 @@
         </note>
         <fix>
             <item>Joomla 5.2 compatibility : new mod_modules</item>
+            <item>Parameters : fix multilanguage readmore CSS (large screen)</item>
         </fix>
 	</changelog>
 	<changelog>

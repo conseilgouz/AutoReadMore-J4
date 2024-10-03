@@ -6,6 +6,8 @@
  * @copyright (C) 2024 www.conseilgouz.com. All Rights Reserved.
  * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
+.subform-repeatable-group .control-group .control-label{width:20px}
+.subform-repeatable-group .control-group .controls{min-width:100px}
 .subform-repeatable-group .control-group:nth-of-type(2){width:40%;float:left}
 .subform-repeatable-group .control-group:nth-of-type(3){padding-left:2em;width:50%;}
 div.subform-repeatable-group{padding:5px 32px 5px 28px}
