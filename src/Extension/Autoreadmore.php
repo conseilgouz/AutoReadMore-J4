@@ -42,8 +42,19 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            'onContentPrepare'   => 'contentPrepare',
+            'onContentPrepare'      => 'contentPrepare',
+            'onContentAfterDisplay' => 'afterDisplayContent',
         ];
+    }
+    public function afterDisplayContent($event) {
+        if (!Factory::getApplication()->isClient('site')) {
+            return false;
+        }
+        $app = Factory::getApplication();
+        if ($app->scope != 'mod_articles') {
+            return;
+        }
+        return $this->contentPrepare($event);
     }
     /**
      * Truncates the article text
@@ -394,7 +405,7 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
                 $article->alternative_readmore = Text::_($this->params->get('readmore_text'));
             }
         } else { // multilanguages site
-            $app        = Factory::getApplication();
+                                                    
             $curlang    = $app->getLanguage();            
             if (($texts = $this->params->get('readmore_list')) && empty($this->alternative_readmore)) {
                 foreach($texts as $onetext) {
@@ -642,8 +653,14 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
         if ($context == 'easyblog.blog' && $jinput->get('view', null, 'CMD') == 'entry') {
             return false;
         }
-        // Fix easyblog
-        if ($context == 'com_content.article' && $app->scope != 'mod_articles_news') {
+
+        // fix mod_articles_news calling twice this plugin
+        if ($context == 'mod_articles_news.content' && $app->scope == 'mod_articles_news') {
+            return false;
+        }
+
+        // Joomla 5.2 : fix mod_articles
+        if ($context == 'com_content.article' && $app->scope != 'mod_articles_news' && $app->scope != 'mod_articles') {
             return false;
         }
 
