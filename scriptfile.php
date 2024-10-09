@@ -19,8 +19,8 @@ use Joomla\Filesystem\File;
 class plgContentAutoreadmoreInstallerScript  {
 	
 	private $extname                 = 'autoreadmore';	
-	private $min_joomla_version      = '3.10.0';
-	private $min_php_version         = '7.2';
+	private $min_joomla_version      = '4.0.0';
+	private $min_php_version         = '8.0';
 	private $installerName = 'ContentAutoreadmoreInstaller';
 	
 	private $dir;
@@ -117,11 +117,17 @@ class plgContentAutoreadmoreInstallerScript  {
 		$version=$j->getShortVersion(); 
 		if (version_compare($version, $this->min_joomla_version, '<'))
 		{
-			Factory::getApplication()->enqueueMessage(
-				'Incompatible Joomla version : found <strong>' . $version . '</strong>, Minimum : <strong>' . $this->min_joomla_version . '</strong>',
-				'error'
-			);
-
+            if ($j->getHelpVersion() == '.310') {
+                Factory::getApplication()->enqueueMessage(
+                    'Incompatible Joomla version : found <strong>' . $version . '</strong>, Minimum : <strong>' . $this->min_joomla_version . '</strong><br><br>Please download <a href="https://github.com/conseilgouz/AutoReadMore-J4/releases/download/5.1.5/AutoReadMore-J4-5.1.5.zip" download="AutoReadMore-J4-5.1.5.zip">AutoreadMore version 5.1.5</a> for Joomla! 3.10.<br><br>',
+                    'error'
+                );
+            } else {
+                Factory::getApplication()->enqueueMessage(
+                    'Incompatible Joomla version : found <strong>' . $version . '</strong>, Minimum : <strong>' . $this->min_joomla_version . '</strong>',
+                    'error'
+                );
+            }
 			return false;
 		}
 
@@ -162,7 +168,18 @@ class plgContentAutoreadmoreInstallerScript  {
 		$db->execute();
 		Factory::getCache()->clean('_system');
 	}
-	
+    public function delete($files = [])
+    {
+        foreach ($files as $file) {
+            if (is_dir($file)) {
+                Folder::delete($file);
+            }
+
+            if (is_file($file)) {
+                File::delete($file);
+            }
+        }
+    }
 
 }
 ?>

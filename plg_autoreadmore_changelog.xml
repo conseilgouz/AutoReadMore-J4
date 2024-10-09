@@ -2,6 +2,18 @@
 	<changelog>
 		<element>autoreadmore</element>
 		<type>plugin</type>
+		<version>5.3.4</version>
+        <note>
+            <item>09/10/2024</item>
+        </note>
+        <fix>
+            <item>Joomla 3.10 : block install and propose correct version link</item>
+            <item>Install : missing delete function</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>autoreadmore</element>
+		<type>plugin</type>
 		<version>5.3.3</version>
         <note>
             <item>03/10/2024</item>
