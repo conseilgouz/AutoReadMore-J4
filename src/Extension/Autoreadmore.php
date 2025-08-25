@@ -79,7 +79,7 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
             return true;
         }
 
-        $jinput = Factory::getApplication()->input;
+        $jinput = Factory::getApplication()->getInput();
 
         if ($jinput->get('option', null, 'CMD') == 'com_dump') {
             return;
@@ -628,7 +628,7 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
     public function _checkIfAllowedContext($context, $article)
     {
         $app    = Factory::getApplication();
-        $jinput = $app->input;
+        $jinput = $app->getInput();
         $context_global = explode('.', $context);
         $context_global = $context_global[0];
         // Some hard-coded contexts to exclude
@@ -962,7 +962,7 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
 
         // Add to the list of thumbnails.
         if ($this->params->get('image_link_to_article') && $ImageAsHTML) {
-            $jinput = Factory::getApplication()->input;
+            $jinput = Factory::getApplication()->getInput();
 
             while (true) {
                 $option = $jinput->get('option', null, 'CMD');

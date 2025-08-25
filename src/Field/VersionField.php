@@ -4,7 +4,7 @@
  *
  * @from       https://github.com/gruz/AutoReadMore
  * @author     ConseilgGouz
- * @copyright (C) 2024 www.conseilgouz.com. All Rights Reserved.
+ * @copyright (C) 2025 www.conseilgouz.com. All Rights Reserved.
  * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
@@ -14,6 +14,7 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\FormField;
 use Joomla\CMS\Language\Text;
+use Joomla\Database\DatabaseInterface;
 use Joomla\String\StringHelper;
 
 // Prevent direct access
@@ -36,10 +37,9 @@ class VersionField extends FormField
 		$return = '';
 
 		$xml = $this->def('xml');
-
+        $jinput = Factory::getApplication()->getInput();
 		// Load language
-		$jinput = Factory::getApplication()->input;
-		$db = Factory::getDBO();
+		$db	= Factory::getContainer()->get(DatabaseInterface::class);
 		$query = $db->getQuery(true);
 		$query
 			->select($db->quoteName(array('element','folder','type')))
@@ -52,11 +52,10 @@ class VersionField extends FormField
 		{
 			$this->plg_full_name = 'plg_' . $row['folder'] . '_' . $row['element'];
 
-			// Is used for building joomfish links
 			$this->langShortCode = null;
 
 			$this->default_lang = ComponentHelper::getParams('com_languages')->get('admin');
-			$language = Factory::getLanguage();
+			$language = Factory::getApplication()->getLanguage();
 			$language->load($this->plg_full_name, JPATH_ROOT . dirname($xml), 'en-GB', true);
 			$language->load($this->plg_full_name, JPATH_ROOT . dirname($xml), $this->default_lang, true);
 		}
@@ -82,12 +81,12 @@ class VersionField extends FormField
 			}
 		}
 
-		$document = Factory::getDocument();
+        $wa = Factory::getApplication()->getDocument()->getWebAssetManager();
 		$css = '';
 		$css .= ".version {display:block;text-align:right;color:brown;font-size:10px;}";
 		$css .= ".readonly.plg-desc {font-weight:normal;}";
 		$css .= "fieldset.radio label {width:auto;}";
-		$document->addStyleDeclaration($css);
+		$wa->addInlineStyle($css);
 		$margintop = $this->def('margintop');
 		if (StringHelper::strlen($margintop)) {
 			$js = "document.addEventListener('DOMContentLoaded', function() {
@@ -95,7 +94,7 @@ class VersionField extends FormField
 			parent = vers.parentElement.parentElement;
 			parent.style.marginTop = '".$margintop."';
 			})";
-			$document->addScriptDeclaration($js);
+			$wa->addInlineScript($js);
 		}
 		$return .= '<span class="version">' . Text::_('JVERSION') . ' ' . $version . "</span>";
 

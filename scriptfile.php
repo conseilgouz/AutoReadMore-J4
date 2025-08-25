@@ -4,7 +4,7 @@
  *
  * @from       https://github.com/gruz/AutoReadMore
  * @author     ConseilgGouz
- * @copyright (C) 2024 www.conseilgouz.com. All Rights Reserved.
+ * @copyright (C) 2025 www.conseilgouz.com. All Rights Reserved.
  * @license    GNU/GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
  */
 
@@ -12,9 +12,10 @@
 defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
-use Joomla\Filesystem\Folder;
 use Joomla\CMS\Version;
+use Joomla\Database\DatabaseInterface;
 use Joomla\Filesystem\File;
+use Joomla\Filesystem\Folder;
 
 class plgContentAutoreadmoreInstallerScript  {
 	
@@ -90,7 +91,7 @@ class plgContentAutoreadmoreInstallerScript  {
 		}
 	}	
 	private function enable_plugin() {
-		$db = Factory::getDbo();
+		$db = Factory::getContainer()->get(DatabaseInterface::class);
 		$query = $db->getQuery(true)
 			->update($db->quoteName('#__extensions'))
 			->set($db->quoteName('enabled') . ' = ' . $db->quote(1))
@@ -158,7 +159,7 @@ class plgContentAutoreadmoreInstallerScript  {
 			JPATH_PLUGINS . '/system/' . $this->installerName . '/language',
 			JPATH_PLUGINS . '/system/' . $this->installerName,
 		]);
-		$db = Factory::getDbo();
+		$db = Factory::getContainer()->get(DatabaseInterface::class);
 		$query = $db->getQuery(true)
 			->delete('#__extensions')
 			->where($db->quoteName('element') . ' = ' . $db->quote($this->installerName))

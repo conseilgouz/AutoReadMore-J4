@@ -2,6 +2,20 @@
 	<changelog>
 		<element>autoreadmore</element>
 		<type>plugin</type>
+		<version>5.4.0</version>
+        <note>
+            <item>25/08/2025</item>
+        </note>
+        <fix>
+            <item>Joomla 6 : getApplication()->input removed</item>
+            <item>Joomla 6 : getDbo() removed</item>
+            <item>Joomla 6 : JPATH_PLATFORM removed</item>
+            <item>Field Version : use webassets and remove getDbo</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>autoreadmore</element>
+		<type>plugin</type>
 		<version>5.3.4</version>
         <note>
             <item>09/10/2024</item>
