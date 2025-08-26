@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.10" type="plugin" group="content" method="upgrade">
 	<name>PLG_CONTENT_AUTOREADMORE_TITLE</name>
-	<creationDate>2025-08-25</creationDate>
+	<creationDate>2025-08-26</creationDate>
 	<copyright>Copyright (C) 2025 Conseilgouz All rights reserved.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
 	<author>ConseilGouz</author>
 	<authorEmail>pascal.leconte@conseilgouz.com</authorEmail>
 	<authorUrl>https://www.conseilgouz.com</authorUrl>
-	<version>5.4.0</version>
+	<version>5.4.1</version>
 	<description>PLG_CONTENT_AUTOREADMORE_THANK_YOU_FOR_USING_AUTO_READ_MORE</description>
 	<namespace path="src">ConseilGouz\Plugin\Content\Autoreadmore</namespace>	
 	<files>
@@ -157,7 +157,8 @@
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
-				<field showon="context_switch:exclude" name="contextsToExclude" type="textarea" label="PLG_CONTENT_AUTOREADMORE_FIELD_CONTEXTSTOEXCLUDE" default="mod_custom.content,"/>
+				<field showon="context_switch:exclude" name="contextsToExclude" type="textarea" label="PLG_CONTENT_AUTOREADMORE_FIELD_CONTEXTSTOEXCLUDE" 
+                description="PLG_CONTENT_AUTOREADMORE_FIELD_CONTEXTSTOEXCLUDE_DESC" default="mod_custom.content,"/>
 
 				<field showon="context_switch:include,exclude" type="note" basetype="notefixed" name="note_reload" heading="span" class="alert" label="PLG_CONTENT_AUTOREADMORE_FIELD_CONTEXT_DESC" maxrepeatlength="1"/>
 

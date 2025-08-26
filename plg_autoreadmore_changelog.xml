@@ -2,6 +2,20 @@
 	<changelog>
 		<element>autoreadmore</element>
 		<type>plugin</type>
+		<version>5.4.1</version>
+        <note>
+            <item>26/08/2025</item>
+        </note>
+        <fix>
+            <item>Include contexts/components does not work</item>
+        </fix>
+        <change>
+            <item>Allow * in contexts list to include/exclude all contexts of one component</item>
+        </change>
+	</changelog>
+	<changelog>
+		<element>autoreadmore</element>
+		<type>plugin</type>
 		<version>5.4.0</version>
         <note>
             <item>25/08/2025</item>

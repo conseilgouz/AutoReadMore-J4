@@ -46,7 +46,8 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
             'onContentAfterDisplay' => 'afterDisplayContent',
         ];
     }
-    public function afterDisplayContent($event) {
+    public function afterDisplayContent($event)
+    {
         if (!Factory::getApplication()->isClient('site')) {
             return false;
         }
@@ -397,7 +398,7 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
                 }
             }
             // note : Joomla uses COM_CONTENT_REGISTER_TO_READ_MORE in components/com_content/tmpl/category/default_articles.php
-            // $article->alternative_readmore = Text::_($this->params->get('readmore_guest')); 
+            // $article->alternative_readmore = Text::_($this->params->get('readmore_guest'));
         }
         $languages = LanguageHelper::getLanguages();
         if (count($languages) == 1) { // one language
@@ -405,10 +406,10 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
                 $article->alternative_readmore = Text::_($this->params->get('readmore_text'));
             }
         } else { // multilanguages site
-                                                    
-            $curlang    = $app->getLanguage();            
+
+            $curlang    = $app->getLanguage();
             if (($texts = $this->params->get('readmore_list')) && empty($this->alternative_readmore)) {
-                foreach($texts as $onetext) {
+                foreach ($texts as $onetext) {
                     if ($onetext->readmore_list_lang == $curlang->getTag()) {
                         $article->alternative_readmore = $onetext->readmore_list_text;
                         break;
@@ -584,7 +585,7 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
     public function _checkIfAllowedCategoryLogged($article)
     {
         $category_switch = $this->params->get('log_categories_switch');
-        $category_ids = $this->params->get('log_categories',array());
+        $category_ids = $this->params->get('log_categories', array());
 
         $in_array = in_array($article->catid, $category_ids);
 
@@ -631,6 +632,7 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
         $jinput = $app->getInput();
         $context_global = explode('.', $context);
         $context_global = $context_global[0];
+
         // Some hard-coded contexts to exclude
         $hard_coded_exclude_global_contexts = array(
             'com_virtuemart', // Never fire for VirtueMart
@@ -712,18 +714,17 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
         switch ($context_switch) {
             case 'include':
                 $paramsContexts = $this->params->get('contextsToInclude');
-                $contextsToInclude = json_decode($paramsContexts);
+                $contextsToInclude = array_map('trim', explode(",", $paramsContexts));
 
-                // The default joomla installation procedure doesn't store defaut params into the DB in the correct way
-                if (!empty($paramsContexts) && $contextsToInclude === null) {
-                    $paramsContexts = str_replace("'", '"', $paramsContexts);
-                    $contextsToInclude = json_decode($paramsContexts);
-                }
-
-                if (!empty($contextsToInclude) && !empty($contextsToInclude->context)) {
-                    foreach ($contextsToInclude->context as $k => $v) {
+                if (!empty($contextsToInclude)) {
+                    foreach ($contextsToInclude as $v) {
                         if ($context == $v) {
                             return true;
+                        }
+                        if (str_ends_with($v, '*')) { // wild card
+                            if (substr($context, 0, strlen($v) - 1) == substr($v, 0, strlen($v) - 1)) {
+                                return true;
+                            }
                         }
                     }
                 }
@@ -740,6 +741,13 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
 
                 if (in_array($context, $contextsToExclude)) {
                     return false;
+                }
+                foreach ($contextsToExclude as $one) {
+                    if (str_ends_with($one, '*')) { // wild card
+                        if (substr($context, 0, strlen($one) - 1) == substr($one, 0, strlen($one) - 1)) {
+                            return false;
+                        }
+                    }
                 }
                 break;
             case 'all_enabled':
@@ -863,7 +871,7 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
 
                 if (isset($article->fulltext)) {
                     $fulltext = $article->fulltext;
-                } elseif(isset($article->id) && !$this->fulltext_loaded && in_array($context, array('com_content.category','com_content.featured'))) {
+                } elseif (isset($article->id) && !$this->fulltext_loaded && in_array($context, array('com_content.category','com_content.featured'))) {
                     $this->loadFullText($article->id);
                 }
 
