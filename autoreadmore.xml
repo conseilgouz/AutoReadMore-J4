@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="3.10" type="plugin" group="content" method="upgrade">
 	<name>PLG_CONTENT_AUTOREADMORE_TITLE</name>
-	<creationDate>2025-08-26</creationDate>
+	<creationDate>2025-09-14</creationDate>
 	<copyright>Copyright (C) 2025 Conseilgouz All rights reserved.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
 	<author>ConseilGouz</author>
 	<authorEmail>pascal.leconte@conseilgouz.com</authorEmail>
 	<authorUrl>https://www.conseilgouz.com</authorUrl>
-	<version>5.4.1</version>
+	<version>5.4.2</version>
 	<description>PLG_CONTENT_AUTOREADMORE_THANK_YOU_FOR_USING_AUTO_READ_MORE</description>
 	<namespace path="src">ConseilGouz\Plugin\Content\Autoreadmore</namespace>	
 	<files>
@@ -56,9 +56,9 @@
 	<config>
 		<fields name="params" >
 			<fieldset name="basic" label="JOPTIONS" 
-                addfieldprefix="ConseilGouz\Plugin\Content\Autoreadmore\Field" 
+                addfieldprefix="ConseilGouz\Library\Field" 
                 addruleprefix="ConseilGouz\Plugin\Content\Autoreadmore\Rule" >
-				<field name="version" type="version" extension="AUTOREADMORE" xml="/plugins/content/autoreadmore/autoreadmore.xml" margintop="-3em"/>
+				<field name="version" type="version" extension="autoreadmore" typext="plugin" margintop="-3em"/>
 			
 				<field name="debug" type="radio" class="btn-group " default="0" label="PLG_CONTENT_AUTOREADMORE_LIMITTYPE_LABEL_DEBUG">
 					<option value="0">JDISABLED</option>

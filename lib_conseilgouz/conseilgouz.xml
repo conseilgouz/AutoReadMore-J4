@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="4.0" type="library" method="upgrade">
+	<name>lib_conseilgouz</name>
+	<libraryname>conseilgouz</libraryname>
+	<author>ConseilGouz</author>
+	<version>1.0.3</version>
+	<creationDate>2025-09-14</creationDate>
+	<copyright>(C)2025 ConseilGouz. All rights reserved.</copyright>
+	<license>GNU General Public License version 3 or later; https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
+	<authorEmail>pascal.leconte@conseilgouz.com</authorEmail>
+	<authorUrl>www.conseilgouz.com</authorUrl>
+	<namespace>ConseilGouz\Library</namespace>
+	<files>
+		<folder>Field</folder>
+        <folder>layouts</folder>
+		<file>index.html</file>
+	</files>
+	<media destination="conseilgouz" folder="media">
+		<folder>fields</folder>
+		<filename>index.html</filename>
+	</media>
+	<updateservers>
+	<server type="extension" name="ConseilGouz Library" priority="1">https://raw.githubusercontent.com/conseilgouz/updates_github/master/lib_conseilgouz_update.xml</server>
+	</updateservers>
+</extension>

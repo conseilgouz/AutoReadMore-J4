@@ -2,6 +2,17 @@
 	<changelog>
 		<element>autoreadmore</element>
 		<type>plugin</type>
+		<version>5.4.2</version>
+        <note>
+            <item>14/09/2025</item>
+        </note>
+        <change>
+            <item>Use ConseilGouz library</item>
+        </change>
+	</changelog>
+	<changelog>
+		<element>autoreadmore</element>
+		<type>plugin</type>
 		<version>5.4.1</version>
         <note>
             <item>26/08/2025</item>
