@@ -2,6 +2,17 @@
 	<changelog>
 		<element>autoreadmore</element>
 		<type>plugin</type>
+		<version>5.4.3</version>
+        <note>
+            <item>09/10/2025</item>
+        </note>
+        <fix>
+            <item>JED Checker errors</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>autoreadmore</element>
+		<type>plugin</type>
 		<version>5.4.2</version>
         <note>
             <item>14/09/2025</item>

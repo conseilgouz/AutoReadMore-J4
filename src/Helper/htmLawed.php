@@ -3,11 +3,17 @@
 /*
 htmLawed 1.2.7, 10 April 2022
 Copyright Santosh Patnaik
+
 Dual licensed with LGPL 3 and GPL 2+
 A PHP Labware internal utility - www.bioinformatics.org/phplabware/internal_utilities/htmLawed
 
 See htmLawed_README.txt/htm
+
+@license    GNU/GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
+
 */
+// No direct access
+defined('_JEXEC') or die('Restricted access');
 
 function htmLawed($t, $C=1, $S=array()){
 $C = is_array($C) ? $C : array();

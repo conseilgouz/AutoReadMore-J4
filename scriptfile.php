@@ -1,6 +1,6 @@
 <?php
 /**
- * AutoReadMore plugin
+ * AutoReadMore plugin for Joomla! 4.x/5.x/6.x
  *
  * @from       https://github.com/gruz/AutoReadMore
  * @author     ConseilgGouz
@@ -213,7 +213,8 @@ class plgContentAutoreadmoreInstallerScript  {
 			->where($db->quoteName('type') . ' = ' . $db->quote('plugin'));
 		$db->setQuery($query);
 		$db->execute();
-		Factory::getCache()->clean('_system');
+        $cache = Factory::getContainer()->get(Joomla\CMS\Cache\CacheControllerFactoryInterface::class)->createCacheController();
+        $cache->clean('_system');
 	}
     public function delete($files = [])
     {
