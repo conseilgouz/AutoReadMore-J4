@@ -7,7 +7,7 @@
 	<author>ConseilGouz</author>
 	<authorEmail>pascal.leconte@conseilgouz.com</authorEmail>
 	<authorUrl>https://www.conseilgouz.com</authorUrl>
-	<version>5.4.4</version>
+	<version>5.4.5</version>
 	<description>PLG_CONTENT_AUTOREADMORE_THANK_YOU_FOR_USING_AUTO_READ_MORE</description>
 	<namespace path="src">ConseilGouz\Plugin\Content\Autoreadmore</namespace>	
 	<files>

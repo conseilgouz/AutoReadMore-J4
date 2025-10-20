@@ -20,8 +20,8 @@ use Joomla\Filesystem\Folder;
 class plgContentAutoreadmoreInstallerScript  {
 	
 	private $extname                 = 'autoreadmore';	
-	private $min_joomla_version      = '6.0.0';
-	private $min_php_version         = '8.3';
+	private $min_joomla_version      = '5.2.0';
+	private $min_php_version         = '8.0';
 	private $installerName  = 'ContentAutoreadmoreInstaller';
     private $newlib_version = '';
 	private $dir;

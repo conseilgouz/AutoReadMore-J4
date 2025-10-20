@@ -2,7 +2,7 @@
 	<changelog>
 		<element>autoreadmore</element>
 		<type>plugin</type>
-		<version>5.4.4</version>
+		<version>5.4.5</version>
         <note>
             <item>20/10/2025</item>
         </note>
@@ -11,6 +11,8 @@
             <item>Joomla 6 : triggerEvent becomes getDispatcher()->dispatch()</item>
             <item>Joomla 6 : Table::getInstance deprecated</item>
             <item>suppress notices</item>
+            <item>ConseilGouz Library verson 1.1.0</item>
+            <item>minimum Joomla version : 5.2.0</item>
         </fix>
 	</changelog>
 	<changelog>
