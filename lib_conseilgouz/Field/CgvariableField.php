@@ -1,20 +1,20 @@
 <?php
 /**
- * ConseilGouz Custom Field CG Range for Joomla 4.x/5.x/6.x
+ * CG Variable field for Joomla 4.x/5.x/6.x
  *
  * @author     ConseilgGouz
  * @copyright (C) 2025 www.conseilgouz.com. All Rights Reserved.
- * @license    GNU/GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
+ * @license    GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  */
 
 namespace ConseilGouz\Library\Field;
 
 defined('_JEXEC') or die;
-use Joomla\CMS\Form\Field\RangeField;
+use Joomla\CMS\Form\Field\TextField;
 
-class CgrangeField extends RangeField
+class CgvariableField extends TextField
 {
-    public $type = 'Cgrange';
+    public $type = 'Cgvariable';
 
     /**
      * Name of the layout being used to render the field
@@ -22,16 +22,15 @@ class CgrangeField extends RangeField
      * @var    string
      * @since  3.7
      */
-    protected $layout = 'cgrange';
+    protected $layout = 'cgvariable';
 
     /**
      * Unit
      *
      * @var    string
      */
-    protected $unit = "";
 
-    protected $layoutData;
+    protected $unit = "";
 
     protected function getLayoutPaths()
     {
@@ -69,11 +68,5 @@ class CgrangeField extends RangeField
         $this->layoutData = $this->getLayoutData();
         return $this->layoutData;
     }
-    protected function getLayoutData()
-    {
-        $data      = parent::getLayoutData();
-        $extraData = ["unit" => $this->element['unit']
-        ];
-        return array_merge($data, $extraData);
-    }
+
 }

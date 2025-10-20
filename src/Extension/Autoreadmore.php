@@ -4,7 +4,7 @@
  *
  * @from       https://github.com/gruz/AutoReadMore
  * @author     ConseilgGouz
- * @copyright (C) 2024 www.conseilgouz.com. All Rights Reserved.
+ * @copyright (C) 2025 www.conseilgouz.com. All Rights Reserved.
  * @license    GNU/GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
  */
 
@@ -13,16 +13,17 @@ namespace ConseilGouz\Plugin\Content\Autoreadmore\Extension;
 // No direct access
 defined('_JEXEC') or die('Restricted access');
 
+use Joomla\CMS\Event\Content\ContentPrepareEvent;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Language\LanguageHelper;
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Router\Route;
-use Joomla\CMS\Table\Table;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Component\Content\Site\Helper\RouteHelper;
+use Joomla\Database\DatabaseInterface;
 use Joomla\Event\SubscriberInterface;
-use Joomla\CMS\Language\LanguageHelper;
 use Joomla\Registry\Registry;
 use Joomla\String\StringHelper;
 use ConseilGouz\Plugin\Content\Autoreadmore\Helper\AutoReadMoreString;
@@ -215,14 +216,18 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
         }
 
         // apply content plugins
-        if ($context == 'com_content.category') {
+        if (($context == 'com_content.category') && isset($article->id)) {
             PluginHelper::importPlugin('content');
             $myparams = clone $this->params_content;
             $myparams->set("autoreadmore", true);
             $item_cls = new \stdClass();
             $item_cls->text = $text;
             $item_cls->id = $article->id;
-            Factory::getApplication()->triggerEvent('onContentPrepare', array($context, &$item_cls, $myparams, 0));
+            $event_params = array('com_content.article', &$item_cls, &$myparams, 0);
+            $eventName = 'onContentPrepare';
+            $event = new ContentPrepareEvent('onContentPrepare', $event_params);
+            $eventResult = Factory::getApplication()->getDispatcher()->dispatch($eventName, $event);
+            // Factory::getApplication()->triggerEvent('onContentPrepare', array($context, &$item_cls, $myparams, 0));
             $text = $item_cls->text;
         }
         $ImageAsHTML = true;
@@ -796,7 +801,8 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
      */
     public function loadFullText($id)
     {
-        $article = Table::getInstance("content", 'JTable');
+        $db = Factory::getContainer()->get(DatabaseInterface::class);
+        $article = new \Joomla\CMS\Table\Content($db);
         $article->load($id);
 
         $article->fulltext_loaded = true;
@@ -857,12 +863,12 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
             // then load fulltext and search in it also
             $matches_tmp = array();
 
-            $json = json_decode($article->images);
-
-            if (!empty($json->image_intro)) {
-                $totalThumbNails--;
+            if (isset($article->images)) {
+                $json = json_decode($article->images);
+                if (!empty($json->image_intro)) {
+                    $totalThumbNails--;
+                }
             }
-
             if ($totalThumbNails < 0) {
                 $totalThumbNails = 0;
             }
@@ -945,7 +951,7 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
         }
 
         if (empty($thumbnails) && trim($this->params->get('default_image', '')) != '') {
-            $Thumbnails_Class = $this->params->get('Thumbnails_Class');
+            $Thumbnails_Class = $this->params->get('Thumbnails_Class', '');
             $Thumbnails_Class_Check = trim($Thumbnails_Class);
 
             if (!empty($Thumbnails_Class_Check)) {

@@ -3,8 +3,8 @@
 	<name>lib_conseilgouz</name>
 	<libraryname>conseilgouz</libraryname>
 	<author>ConseilGouz</author>
-	<version>1.0.3</version>
-	<creationDate>2025-09-14</creationDate>
+	<version>1.1.0</version>
+	<creationDate>2025-20-10</creationDate>
 	<copyright>(C)2025 ConseilGouz. All rights reserved.</copyright>
 	<license>GNU General Public License version 3 or later; https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
 	<authorEmail>pascal.leconte@conseilgouz.com</authorEmail>
@@ -12,6 +12,7 @@
 	<namespace>ConseilGouz\Library</namespace>
 	<files>
 		<folder>Field</folder>
+        <folder>Rule</folder>
         <folder>layouts</folder>
 		<file>index.html</file>
 	</files>

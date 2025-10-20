@@ -20,8 +20,8 @@ use Joomla\Filesystem\Folder;
 class plgContentAutoreadmoreInstallerScript  {
 	
 	private $extname                 = 'autoreadmore';	
-	private $min_joomla_version      = '4.0.0';
-	private $min_php_version         = '8.0';
+	private $min_joomla_version      = '6.0.0';
+	private $min_php_version         = '8.3';
 	private $installerName  = 'ContentAutoreadmoreInstaller';
     private $newlib_version = '';
 	private $dir;
@@ -138,7 +138,7 @@ class plgContentAutoreadmoreInstallerScript  {
     }
 	private function enable_plugin() {
 		$db = Factory::getContainer()->get(DatabaseInterface::class);
-		$query = $db->getQuery(true)
+		$query = $db->createQuery()
 			->update($db->quoteName('#__extensions'))
 			->set($db->quoteName('enabled') . ' = ' . $db->quote(1))
 			->where($db->quoteName('element') . ' = ' . $db->quote($this->extname));

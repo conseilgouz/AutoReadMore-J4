@@ -49,7 +49,7 @@ class VersionField extends FormField
         $version = '';
 
         $db = Factory::getContainer()->get(DatabaseInterface::class);
-        $query = $db->getQuery(true);
+        $query = $db->createQuery();
         $query
             ->select($db->quoteName('manifest_cache'))
             ->from($db->quoteName('#__extensions'))
@@ -72,11 +72,17 @@ class VersionField extends FormField
         $css .= "fieldset.radio label {width:auto;}";
         $wa->addInlineStyle($css);
         $margintop = $this->def('margintop');
+        $float = $this->def('float');
+        $floatstr = "";
+        if (StringHelper::strlen($float)) {
+            $floatstr = "parent.style.float = '".$float."';";
+        }
         if (StringHelper::strlen($margintop)) {
             $js = "document.addEventListener('DOMContentLoaded', function() {
 			vers = document.querySelector('.version');
 			parent = vers.parentElement.parentElement;
 			parent.style.marginTop = '".$margintop."';
+            ".$floatstr. "
 			})";
             $wa->addInlineScript($js);
         }
