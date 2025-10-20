@@ -216,7 +216,7 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
         }
 
         // apply content plugins
-        if (($context == 'com_content.category') && isset($article->id)) {
+        if ((($context == 'com_content.featured') || ($context == 'com_content.category')) && isset($article->id)) {
             PluginHelper::importPlugin('content');
             $myparams = clone $this->params_content;
             $myparams->set("autoreadmore", true);
@@ -227,7 +227,6 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
             $eventName = 'onContentPrepare';
             $event = new ContentPrepareEvent('onContentPrepare', $event_params);
             $eventResult = Factory::getApplication()->getDispatcher()->dispatch($eventName, $event);
-            // Factory::getApplication()->triggerEvent('onContentPrepare', array($context, &$item_cls, $myparams, 0));
             $text = $item_cls->text;
         }
         $ImageAsHTML = true;

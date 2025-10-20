@@ -2,11 +2,12 @@
 	<changelog>
 		<element>autoreadmore</element>
 		<type>plugin</type>
-		<version>5.4.5</version>
+		<version>5.4.6</version>
         <note>
             <item>20/10/2025</item>
         </note>
         <fix>
+            <item>Apply content plugins in featured context</item>
             <item>Joomla 6 : getQuery(true) becomes createQuery() </item>
             <item>Joomla 6 : triggerEvent becomes getDispatcher()->dispatch()</item>
             <item>Joomla 6 : Table::getInstance deprecated</item>
