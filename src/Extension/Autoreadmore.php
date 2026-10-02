@@ -4,7 +4,7 @@
  *
  * @from       https://github.com/gruz/AutoReadMore
  * @author     ConseilgGouz
- * @copyright (C) 2025 www.conseilgouz.com. All Rights Reserved.
+ * @copyright (C) 2026 www.conseilgouz.com. All Rights Reserved.
  * @license    GNU/GPLv3 https://www.gnu.org/licenses/gpl-3.0.html
  */
 
@@ -216,7 +216,7 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
         }
 
         // apply content plugins
-        if ((($context == 'com_content.featured') || ($context == 'com_content.category')) && isset($article->id)) {
+        if ((($context == 'com_content.featured') || in_array($context, ['com_content.category', 'com_content.category.description'])) && isset($article->id)) {
             PluginHelper::importPlugin('content');
             $myparams = clone $this->params_content;
             $myparams->set("autoreadmore", true);
@@ -456,7 +456,7 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
         $data = array();
 
         // Prepare data from joomla core articles or frontpage
-        if (($this->params->get('joomla_articles')		&& 	$context == 'com_content.category')
+        if (($this->params->get('joomla_articles')	&& 	in_array($context, ['com_content.category', 'com_content.category.description']))
             ||	($this->params->get('Enabled_Front_Page')	&& 	$context == 'com_content.featured')) {
             $prefix = '';
 
@@ -472,7 +472,7 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
             );
             $data[$context] = $row;
         }
-        if ($this->params->get('joomla_articles')  &&  ($context == 'com_content.category')) {
+        if ($this->params->get('joomla_articles')  &&  in_array($context, ['com_content.category', 'com_content.category.description'])) {
             if (($this->params->get('joomla_articles_featured', 1) == 0) && ($article->featured == 1)) {
                 // ignore featured items in category view
                 return false;
@@ -692,7 +692,7 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
             return true;
         }
 
-        if ($this->params->get('joomla_articles') == 0 and $context == 'com_content.category') {
+        if ($this->params->get('joomla_articles') == 0 and in_array($context, ['com_content.category', 'com_content.category.description'])) {
             return false;
         } elseif ($context == 'com_content.categories') {
             if ($this->params->get('joomla_articles_parse_category')) {
@@ -700,7 +700,7 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
             } else {
                 return false;
             }
-        } elseif ($this->params->get('joomla_articles') == 1 and in_array($context, ['com_content.category', 'com_content.categories'])) {
+        } elseif ($this->params->get('joomla_articles') == 1 and in_array($context, ['com_content.category', 'com_content.category.description', 'com_content.categories'])) {
             // If it's an article, as a category desc doesn't contain anything in it's object except ->text
             if (isset($article->id)) {
                 return true;
@@ -759,7 +759,7 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
                 break;
             case 'all_disabled':
                 // This check just in case, should never come here in such a case
-                if (!in_array($context, array('com_content.category', 'com_content.featured'))) {
+                if (!in_array($context, array('com_content.category','com_content.category.description', 'com_content.featured'))) {
                     return false;
                 }
                 break;
@@ -876,7 +876,7 @@ final class Autoreadmore extends CMSPlugin implements SubscriberInterface
 
                 if (isset($article->fulltext)) {
                     $fulltext = $article->fulltext;
-                } elseif (isset($article->id) && !$this->fulltext_loaded && in_array($context, array('com_content.category','com_content.featured'))) {
+                } elseif (isset($article->id) && !$this->fulltext_loaded && in_array($context, array('com_content.category','com_content.category.description','com_content.featured'))) {
                     $this->loadFullText($article->id);
                 }
 

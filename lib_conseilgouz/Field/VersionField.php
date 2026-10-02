@@ -49,7 +49,7 @@ class VersionField extends FormField
         $version = '';
 
         $db = Factory::getContainer()->get(DatabaseInterface::class);
-        $query = $db->createQuery();
+        $query = $db->getQuery(true);
         $query
             ->select($db->quoteName('manifest_cache'))
             ->from($db->quoteName('#__extensions'))

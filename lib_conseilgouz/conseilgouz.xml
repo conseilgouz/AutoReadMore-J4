@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension version="4.0" type="library" method="upgrade">
 	<name>lib_conseilgouz</name>
-	<libraryname>conseilgouz</libraryname>
+	<libraryname>lib_conseilgouz</libraryname>
 	<author>ConseilGouz</author>
-	<version>1.1.0</version>
-	<creationDate>2025-20-10</creationDate>
-	<copyright>(C)2025 ConseilGouz. All rights reserved.</copyright>
+	<version>1.1.4</version>
+    <client>site</client>
+	<creationDate>2026-08-14</creationDate>
+	<copyright>(C)2026 ConseilGouz. All rights reserved.</copyright>
 	<license>GNU General Public License version 3 or later; https://www.gnu.org/licenses/gpl-3.0.html GNU/GPL</license>
 	<authorEmail>pascal.leconte@conseilgouz.com</authorEmail>
 	<authorUrl>www.conseilgouz.com</authorUrl>

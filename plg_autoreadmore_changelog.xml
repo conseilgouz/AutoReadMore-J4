@@ -2,6 +2,18 @@
 	<changelog>
 		<element>autoreadmore</element>
 		<type>plugin</type>
+		<version>5.4.7</version>
+        <note>
+            <item>02/10/2026</item>
+        </note>
+        <fix>
+            <item>Category list menu : description is truncated whatever "Run on category description" parameter value</item>
+            <item>ConseilGouz Library verson 1.1.4</item>
+        </fix>
+	</changelog>
+	<changelog>
+		<element>autoreadmore</element>
+		<type>plugin</type>
 		<version>5.4.6</version>
         <note>
             <item>20/10/2025</item>

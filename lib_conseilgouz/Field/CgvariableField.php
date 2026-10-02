@@ -35,7 +35,7 @@ class CgvariableField extends TextField
     protected function getLayoutPaths()
     {
         $paths = parent::getLayoutPaths();
-        $paths[] = JPATH_SITE.'/libraries/conseilgouz/layouts';
+        $paths[] = JPATH_SITE.'/libraries/lib_conseilgouz/layouts';
         return $paths;
 
     }
