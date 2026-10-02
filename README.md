@@ -1,6 +1,6 @@
 # AutoReadMore :spoon:
 
-Adds Readmore button automatically for Joomla J4.x/J5.x articles
+Adds Readmore button automatically for Joomla J4.x/J5.x/J6.x articles
 
 * from Gruz <arygroup@gmail.com>
 * fork from https://github.com/gruz/AutoReadMore
